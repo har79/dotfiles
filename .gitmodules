@@ -1,0 +1,6 @@
+[submodule "custom/powerline-fonts"]
+	path = custom/powerline-fonts
+	url = https://github.com/powerline/fonts.git
+[submodule "custom/kde-solarized"]
+	path = custom/kde-solarized
+	url = https://github.com/hayalci/kde-colors-solarized

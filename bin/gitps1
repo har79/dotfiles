@@ -1,0 +1,6 @@
+#!/bin/sh
+
+GIT_PROMPT="/etc/bash_completion.d/git-prompt.sh"
+[[ "$(uname)" == "Darwin" ]] && GIT_PROMPT="$(brew --prefix)$GIT_PROMPT"
+. "$GIT_PROMPT"
+__git_ps1

@@ -1,0 +1,52 @@
+#!/usr/bin/expect --
+
+## force_conservative
+# Some programs discard or ignore keystrokes that arrive "too quickly" after prompts. Setting "force_conservative" to 1 makes Expect add a short sleep before each send.
+set force_conservative 0
+if {$force_conservative} {
+    set send_slow {1 .1}
+    proc send {ignore arg} {
+    	sleep .1
+   	 exp_send -s -- $arg
+    }
+}
+
+## internal variables
+set _SCRIPT_NAME [string range $argv0 [string last "/" $argv0]+1 end]
+
+## internal functions
+
+# _err $message
+#     prints $message to stderr and exits the program with status 1
+proc _err {msg} {
+    global _SCRIPT_NAME
+    puts stderr "$SCRIPT_NAME: $msg"
+    exit 1
+}
+
+# _printUsage
+#     prints the usage message to stderr
+proc _printUsage {} {
+    global _SCRIPT_NAME
+    puts stderr "usage: $SCRIPT_NAME"
+}
+
+## global variables
+
+## option and argument parsing
+if { $argc == 0 } {
+} elseif { $argc == 1 } {
+    set arg [lindex $argv 0]
+    if  { [string equal $arg "-h"] || [string equal $arg "--help"] } {
+   	 _printUsage
+   	 exit 0
+    }
+} else {
+    _printUsage
+    exit 1
+}
+
+## functions
+
+## main
+

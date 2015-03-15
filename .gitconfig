@@ -1,0 +1,11 @@
+[user]
+        name = Harry Cameron
+        email = git@harrycameron.com
+[color]
+        status = auto
+        branch = auto
+        ui = true
+[core]
+        excludesfile = ~/.gitignore
+[push]
+        default = simple

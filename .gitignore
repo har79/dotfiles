@@ -1,0 +1,7 @@
+.*~
+*.swap
+.*.swo
+.*.swp
+.directory
+.DS_Store
+Icon\r

@@ -1,0 +1,45 @@
+test -s ~/.alias && . ~/.alias
+
+export EDITOR=/usr/bin/vim
+export GIT_PS1_SHOWDIRTYSTATE=true
+export PATH="${PATH}:$HOME/.local/bin:/sbin:/usr/sbin"
+
+trash () { kioclient move "$@" trash:/; }
+
+[[ "$-" != *i* ]] && return
+
+test -r ~/.dir_colors && eval "$(dircolors ~/.dir_colors)"
+
+# Powerline
+. ~/.powerline/bindings/bash/powerline.sh
+#. ~/Library/Python/2.7/lib/python/site-packages/powerline/bindings/bash/powerline.sh
+
+# Solarized Light
+emphasis="\[\e[1;32m"
+default="\[\e[m"
+comment="\[\e[1;36;47m"
+hl="\[\e[47m"
+red="\[\e[0;31m"
+orange="\[\e[1;31m"
+yellow="\[\e[0;33m"
+green="\[\e[0;32m"
+cyan="\[\e[0;36m"
+blue="\[\e[0;34m"
+violet="\[\e[1;35m"
+magenta="\[\e[0;35m"
+
+PS1="\n\
+$comment \
+\$([[ \$? == 0 ]] || echo \"$yellow$hl\")v\v\
+$comment:\
+\$([[ \j == 0 ]] || echo \"$cyan$hl\")\j\
+$comment \
+$red\u$default@$green\h$default:$blue\w\
+$violet\$(__git_ps1)\
+$comment\n> $default"
+PS2="$comment> $default"
+
+set -o vi
+
+~/bin/welcome && exit
+

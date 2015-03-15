@@ -1,0 +1,28 @@
+#!/bin/bash
+
+function runTmux {
+  eval tmux -2 $(tmux ls | sed -n -r '/attached/ !{s/^([^:]+):.*/attach -t "\1"/;x}; ${x;p}')
+  #[[ "$TMUX" ]] || { eval tmux -2 $(tmux ls | sed -n -r '/attached/ !{s/^([^:]+):.*/attach -t "\1"/;x}; ${x;p}'); }
+  #[[ "$TMUX" ]] || { tmux $(tmux ls | grep -q attached && echo attach) && exit; }
+  #[[ "$TMUX" ]] || { tmux attach || tmux && exit; }
+}
+
+[[ "$TMUX" ]] && exit 1
+
+hosts=()
+if [ -f ~/.ssh/config ]; then
+  hosts=($(sed -nE 's/\s*Host\s+(\S+).*/\1/p' ~/.ssh/config))
+fi
+
+[[ ${#hosts[@]} == 0 ]] && { runTmux; exit; }
+
+options=("localhost" "${hosts[@]}")
+PS3='Select host: '
+select opt in "${options[@]}"; do
+  if [[ "$opt" == "localhost" ]]; then
+    runTmux
+  else
+    ssh "$opt" 2>/dev/null
+  fi
+  exit
+done

@@ -1,0 +1,15 @@
+{
+  "name": "Default color scheme for shell prompts",
+  "groups": {
+    "user": { "fg": "base3", "bg": "red" },
+    "superuser": { "fg": "base3", "bg": "red", "attr": ["bold"] },
+    "hostname": { "fg": "base3", "bg": "green" },
+    "cwd": { "fg": "blue", "bg": "base2" },
+    "cwd:current_folder": { "fg": "blue", "bg": "base2" },
+    "cwd:divider": { "fg": "blue", "bg": "base2" },
+    "branch": { "fg": "base3", "bg": "violet" },
+    "prodcertstatus": { "fg": "base3", "bg": "magenta" },
+    "jobnum": { "fg": "base3", "bg": "cyan" },
+    "exit_fail": { "fg": "base3", "bg": "yellow" }
+  }
+}

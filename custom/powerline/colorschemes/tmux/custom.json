@@ -1,0 +1,10 @@
+{
+  "name": "Custom colour scheme for tmux, based on solarized",
+  "groups": {
+    "background:divider": { "fg": "yellow", "bg": "yellow" },
+    "hostname": { "fg": "base03", "bg": "base1", "attr": ["bold"] },
+    "time": { "fg": "base03", "bg": "base0"},
+    "time:divider": { "fg": "yellow", "bg": "yellow" },
+    "system_load": { "fg": "base03", "bg": "base00" }
+  }
+}

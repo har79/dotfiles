@@ -17,4 +17,5 @@ alias md='mkdir -p'
 alias o='less'
 alias page='sed -E "s/(.{$(tput cols)}).*/\1/;$(($(tput lines)-$(echo -en $PS1 | wc -l)))q"'
 alias rd='rmdir'
+alias tmux='tmux -2'
 alias unmount=umount

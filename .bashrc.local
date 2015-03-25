@@ -1,4 +1,5 @@
-test -s ~/.alias && . ~/.alias
+shopt -s expand_aliases
+[[ -s "~/.alias" ]] && source ~/.alias
 
 export EDITOR=/usr/bin/vim
 export PATH="${PATH}:$HOME/.local/bin:/sbin:/usr/sbin"
@@ -15,7 +16,6 @@ source ~/.git_prompt.sh
 
 # Powerline
 . ~/.powerline/bindings/bash/powerline.sh
-#. ~/Library/Python/2.7/lib/python/site-packages/powerline/bindings/bash/powerline.sh
 
 # Solarized Light
 emphasis="\[\e[1;32m"
@@ -44,5 +44,30 @@ PS2="$comment> $default"
 
 set -o vi
 
-~/bin/welcome && exit
+function _tmux {
+  tmux attach || tmux
+}
+
+function welcome {
+  [[ "$TMUX" ]] && return 1
+
+  local hosts=()
+  if [ -f ~/.ssh/config ]; then
+    hosts=($(sed -nE 's/\s*Host\s+(\S+).*/\1/p' ~/.ssh/config))
+  fi
+
+  [[ ${#hosts[@]} == 0 ]] && { _tmux; return; }
+
+  local -r options=("localhost" "${hosts[@]}")
+  PS3='Select host: '
+  select opt in "${options[@]}"; do
+    if [[ "$opt" == "localhost" ]]; then
+      _tmux
+    else
+      ssh "$opt" 2>/dev/null
+    fi
+  done
+}
+
+welcome && exit
 

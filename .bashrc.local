@@ -1,5 +1,5 @@
 shopt -s expand_aliases
-[[ -s "~/.alias" ]] && source ~/.alias
+[[ -r ~/.alias ]] && source ~/.alias
 
 export EDITOR=/usr/bin/vim
 export PATH="${PATH}:$HOME/.local/bin:/sbin:/usr/sbin"
@@ -8,11 +8,11 @@ trash () { kioclient move "$@" trash:/; }
 
 [[ "$-" != *i* ]] && return
 
-[[ -r "~/.dir_colors" ]] && eval "$(dircolors ~/.dir_colors)"
+[[ -r ~/.dir_colors ]] && eval "$(dircolors ~/.dir_colors)"
 
 # __git_ps1
 export GIT_PS1_SHOWDIRTYSTATE=true
-source ~/.git_prompt.sh
+source ~/.git-prompt.sh
 
 # Powerline
 . ~/.powerline/bindings/bash/powerline.sh

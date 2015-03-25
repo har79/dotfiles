@@ -1,36 +1,43 @@
 #!/bin/sh
 set -eu
 
-# Globals
-readonly DIR="${PWD}/$(dirname -- "$0")"
+function set_globals {
+  # Globals
+  DIR="${PWD}/$(dirname -- "$0")"
+  DIR="${DIR%/custom}"
+  readonly DIR
 
-readonly OS="$(uname)"
-if [[ "${OS}" == "Linux" ]]; then
-  readonly DISTRO="$(lsb_release -si)"
-fi
+  readonly OS="$(uname)"
+  if [[ "${OS}" == "Linux" ]]; then
+    readonly DISTRO="$(lsb_release -si)"
+  fi
 
-case "${OS}" in
-  "Linux")
-    POWERLINE="$(ls -d ~/.local/lib/python*/site-packages/powerline/)"
-    GIT_PS1="/usr/lib/git-core/git-sh-prompt"
-    case "${DISTRO}" in
-      "openSUSE project")
-        INSTALL="zypper in"
-        ;;
-      *)
-        err_unsupported "Linux distro \"${DISTRO}\""
-    esac
-    ;;
-  "Darwin")
-    POWERLINE="~/Library/Python/2.7/lib/python/site-packages/powerline"
-    GIT_PS1="$(brew --prefix)/etc/bash_completion.d/git-prompt.sh"
-    INSTALL="brew install"
-    ;;
-  *)
-    err_unsupported "Operating system \"${OS}\""
-esac
-readonly POWERLINE
-readonly INSTALL
+  case "${OS}" in
+    "Linux")
+      POWERLINE="$(ls -d ~/.local/lib/python*/site-packages/powerline/)"
+      GIT_PS1="/usr/lib/git-core/git-sh-prompt"
+      case "${DISTRO}" in
+        "openSUSE project")
+          INSTALL="zypper in"
+          ;;
+        "Ubuntu")
+          INSTALL="aptitude install"
+          ;;
+        *)
+          err_unsupported "Linux distro \"${DISTRO}\""
+      esac
+      ;;
+    "Darwin")
+      POWERLINE="~/Library/Python/2.7/lib/python/site-packages/powerline"
+      GIT_PS1="$(brew --prefix)/etc/bash_completion.d/git-prompt.sh"
+      INSTALL="brew install"
+      ;;
+    *)
+      err_unsupported "Operating system \"${OS}\""
+  esac
+  readonly POWERLINE
+  readonly INSTALL
+}
 
 # err_unsupported SYSTEM
 #
@@ -43,7 +50,7 @@ err_unsupported() {
 gitignore() {
   while read glob; do
     [[ "$1" == ${glob} ]] && return 0
-  done < .gitignore
+  done < ${DIR}/.gitignore
   return 1
 }
 
@@ -73,7 +80,7 @@ link () {
   if [[ "$(readlink ${name})" == "${target}" ]]; then
     echo " (already exists)"
   else
-    if [[ -e "${name}" ]]; then
+    if [[ -e "${name}" || -L "${name}" ]]; then
       echo " (existing ${name} moved to ${name}.original)"
       mv "${name}"{,.original}
     else
@@ -101,14 +108,14 @@ install_deps() {
 link_dotfiles() {
   prompt "link dotfiles"
   local file
-  for file in $(ls -A .dotfiles/); do
+  for file in $(ls -A "${DIR}"); do
     case "${file}" in
-      ".git" | ".gitmodules" | "custom" ) ;;
-      *) gitignore "${file}" || link "${PWD}/.dotfiles/${file}" "${file}" ;;
+      ".git" | ".gitmodules" | "custom" | "LICENSE" ) ;;
+      *) gitignore "${file}" || link "${DIR}/${file}" "${file}" ;;
     esac
   done
 
-  link "${GIT_PS1}" "~/.git-prompt.sh"
+  link "${GIT_PS1}" ".git-prompt.sh"
 
   local -r srcbashrc=". ${PWD}/.bashrc.local"
   if ! grep -Fxq "${srcbashrc}" .bashrc; then
@@ -118,12 +125,12 @@ link_dotfiles() {
 
 install_powerline() {
   prompt "install Powerline"
-  ( cd "${DIR}/powerline-fonts"; ./install.sh; )
+  ( cd "${DIR}/custom/powerline-fonts"; ./install.sh; )
   echo -e "\e[0;31mChange the font in your terminal emulator to 'DejaVu Sans Mono for Powerline'.\e[m"
   pip install --user git+git://github.com/Lokaltog/powerline
-  link "${PWD}/.dotfiles/custom/powerline" ".config/"
+  link "${DIR}/custom/powerline" ".config/"
   link "${POWERLINE}" ".powerline"
-  link "${PWD}/.dotfiles/custom/powerline/custom.py" ".powerline/segments/"
+  link "${DIR}/custom/powerline/custom.py" ".powerline/segments/"
 }
 
 install_vim_plugins() {
@@ -137,16 +144,17 @@ install_vim_plugins() {
 install_kde_solarized() {
   if [[ -d ~/.kde || -d ~/.kde4 ]]; then
     prompt "install Solarized colour schemes for KDE"
-    ( cd "${DIR}/kde-solarized"; ./install.sh; )
+    ( cd "${DIR}/custom/kde-solarized"; ./install.sh; )
   fi
 }
 
 main() {
+  set_globals
 
   cd ~
 
-  install_deps
-  link_dotfiles
+  #install_deps
+  #link_dotfiles
   install_powerline
   install_vim_plugins
   install_kde_solarized

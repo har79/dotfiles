@@ -45,10 +45,11 @@ PS2="$comment> $default"
 set -o vi
 
 function _tmux {
-  tmux attach || tmux
+  session="$(tmux ls | sed -n -r '/attached/ !{s/^([^:]+):.*/\1/;x}; ${x;p}')"
+  tmux ${session:+attach}
 }
 
-function welcome {
+function selectHost {
   [[ "$TMUX" ]] && return 1
 
   local hosts=()
@@ -58,9 +59,8 @@ function welcome {
 
   [[ ${#hosts[@]} == 0 ]] && { _tmux; return; }
 
-  local -r options=("localhost" "${hosts[@]}")
   PS3='Select host: '
-  select opt in "${options[@]}"; do
+  select opt in "localhost" ${hosts[@]/"$(hostname -s)"}; do
     if [[ "$opt" == "localhost" ]]; then
       _tmux
     else
@@ -69,5 +69,5 @@ function welcome {
   done
 }
 
-welcome && exit
+selectHost && exit
 

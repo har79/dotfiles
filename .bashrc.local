@@ -1,7 +1,6 @@
 test -s ~/.alias && . ~/.alias
 
 export EDITOR=/usr/bin/vim
-export GIT_PS1_SHOWDIRTYSTATE=true
 export PATH="${PATH}:$HOME/.local/bin:/sbin:/usr/sbin"
 
 trash () { kioclient move "$@" trash:/; }
@@ -9,6 +8,10 @@ trash () { kioclient move "$@" trash:/; }
 [[ "$-" != *i* ]] && return
 
 test -r ~/.dir_colors && eval "$(dircolors ~/.dir_colors)"
+
+# __git_ps1
+export GIT_PS1_SHOWDIRTYSTATE=true
+source ~/.git_prompt.sh
 
 # Powerline
 . ~/.powerline/bindings/bash/powerline.sh

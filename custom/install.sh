@@ -12,6 +12,7 @@ fi
 case "${OS}" in
   "Linux")
     POWERLINE="$(ls -d ~/.local/lib/python*/site-packages/powerline/)"
+    GIT_PS1="/usr/lib/git-core/git-sh-prompt"
     case "${DISTRO}" in
       "openSUSE project")
         INSTALL="zypper in"
@@ -22,6 +23,7 @@ case "${OS}" in
     ;;
   "Darwin")
     POWERLINE="~/Library/Python/2.7/lib/python/site-packages/powerline"
+    GIT_PS1="$(brew --prefix)/etc/bash_completion.d/git-prompt.sh"
     INSTALL="brew install"
     ;;
   *)
@@ -105,6 +107,8 @@ link_dotfiles() {
       *) gitignore "${file}" || link "${PWD}/.dotfiles/${file}" "${file}" ;;
     esac
   done
+
+  link "${GIT_PS1}" "~/.git-prompt.sh"
 
   local -r srcbashrc=". ${PWD}/.bashrc.local"
   if ! grep -Fxq "${srcbashrc}" .bashrc; then

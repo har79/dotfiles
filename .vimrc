@@ -38,18 +38,18 @@ let g:bufExplorerSortBy='fullpath'
 let g:bufExplorerSplitOutPathName=0
 
 " CtrlP
-"let g:ctrlp_working_path_mode = ''
+"let g:ctrlp_working_path_mode=''
 
 " vim-go
-let g:go_bin_path = expand("~/.vim-go")
+let g:go_bin_path=expand("~/.vim-go")
 
 " vim-session
-let g:session_autoload = 'no'
+let g:session_autoload='no'
 let g:session_autosave='yes'
 let g:session_autosave_periodic=5
 
 " YCM
-let g:ycm_complete_in_comments = 1
+let g:ycm_complete_in_comments=1
 
 " Whitespace
 set list listchars=tab:\ \ ,trail:\ 
@@ -58,8 +58,8 @@ highlight SpecialKey ctermbg=Yellow guibg=Yellow
 " General
 syntax on
 
-let g:enable_local_swap_dirs = 1
-let mapleader = ","
+let g:enable_local_swap_dirs=1
+let mapleader=","
 
 set cindent
 set cmdheight=4
@@ -94,7 +94,7 @@ nnoremap <leader>bs :BufExplorerHorizontalSplit<CR>
 nnoremap <leader>bv :BufExplorerVerticalSplit<CR>
 nnoremap <leader>bx :BufExplorer<CR>
 
-nnoremap <leader>e :CtrlP<CR>
+nnoremap <leader>e :CtrlPMixed<CR>
 
 nnoremap <leader>f :e! % <CR>
 

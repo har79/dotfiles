@@ -19,6 +19,10 @@
         }
       },
       {
+        "function": "powerline.segments.custom.loginstatus",
+        "before": ""
+      },
+      {
         "function": "powerline.segments.shell.jobnum"
       },
       {

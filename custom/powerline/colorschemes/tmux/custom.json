@@ -1,5 +1,5 @@
 {
-  "name": "Custom colour scheme for tmux, based on solarized",
+  "name": "Custom colour scheme for tmux, based on solarized light.",
   "groups": {
     "background:divider": { "fg": "yellow", "bg": "yellow" },
     "hostname": { "fg": "base03", "bg": "base1", "attr": ["bold"] },

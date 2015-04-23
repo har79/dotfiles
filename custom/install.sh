@@ -3,10 +3,6 @@ set -eu
 
 function set_globals {
   # Globals
-  DIR="${PWD}/$(dirname -- "$0")"
-  DIR="${DIR%/custom}"
-  readonly DIR
-
   readonly OS="$(uname)"
   if [[ "${OS}" == "Linux" ]]; then
     readonly DISTRO="$(lsb_release -si)"
@@ -14,8 +10,8 @@ function set_globals {
 
   case "${OS}" in
     "Linux")
-      POWERLINE="$(ls -d ~/.local/lib/python*/site-packages/powerline/)"
       GIT_PS1="/usr/lib/git-core/git-sh-prompt"
+      POWERLINE="$(ls -d ~/.local/lib/python*/site-packages/powerline/)"
       case "${DISTRO}" in
         "openSUSE project")
           INSTALL="zypper in"
@@ -28,15 +24,16 @@ function set_globals {
       esac
       ;;
     "Darwin")
-      POWERLINE="~/Library/Python/2.7/lib/python/site-packages/powerline"
       GIT_PS1="$(brew --prefix)/etc/bash_completion.d/git-prompt.sh"
       INSTALL="brew install"
+      POWERLINE="~/Library/Python/2.7/lib/python/site-packages/powerline"
       ;;
     *)
       err_unsupported "Operating system \"${OS}\""
   esac
-  readonly POWERLINE
+  readonly GIT_PS1
   readonly INSTALL
+  readonly POWERLINE
 }
 
 # err_unsupported SYSTEM
@@ -50,7 +47,7 @@ err_unsupported() {
 gitignore() {
   while read glob; do
     [[ "$1" == ${glob} ]] && return 0
-  done < ${DIR}/.gitignore
+  done < ~/.gitignore
   return 1
 }
 
@@ -99,40 +96,50 @@ prompt() {
   read
 }
 
+# install_deps
 install_deps() {
   local -r deps="cmake gcc-c++ mercurial python-devel python-pip tmux"
   prompt "install the following packages: ${deps}"
   install ${deps}
 }
 
+# link_dotfiles DIR
 link_dotfiles() {
+  local -r dir="$1"
   prompt "link dotfiles"
+
+  [[ -e "${dir}/.gitignore" ]] && link "${dir}/.gitignore" ".gitignore"
+
   local file
-  for file in $(ls -A "${DIR}"); do
+  for file in $(ls -A "${dir}"); do
     case "${file}" in
-      ".git" | ".gitmodules" | "custom" | "LICENSE" ) ;;
-      *) gitignore "${file}" || link "${DIR}/${file}" "${file}" ;;
+      ".git" | ".gitignore" | ".gitmodules" | "custom" | "external" | "install" | "LICENSE" ) ;;
+      *) gitignore  "${file}" || link "${dir}/${file}" "${file}" ;;
     esac
   done
 
-  link "${GIT_PS1}" ".git-prompt.sh"
-
-  local -r srcbashrc=". ${PWD}/.bashrc.local"
-  if ! grep -Fxq "${srcbashrc}" .bashrc; then
-    echo "${srcbashrc}" >> .bashrc
-  fi
+  local bashrc
+  local srcbashrc
+  for bashrc in $(ls "${dir}"/.bashrc.*); do
+    srcbashrc=". '${PWD}/$(basename -- "${bashrc}")'"
+    if ! grep -Fxq "${srcbashrc}" .bashrc; then
+      echo "${srcbashrc}" >> .bashrc
+    fi
+  done
 }
 
+# install_powerline DIR
 install_powerline() {
+  local -r dir="$1"
   prompt "install Powerline"
-  ( cd "${DIR}/custom/powerline-fonts"; ./install.sh; )
+  ( cd "${dir}/custom/powerline-fonts"; ./install.sh; )
   echo -e "\e[0;31mChange the font in your terminal emulator to 'DejaVu Sans Mono for Powerline'.\e[m"
   pip install --user git+git://github.com/Lokaltog/powerline
-  link "${DIR}/custom/powerline" ".config/"
-  link "${POWERLINE}" ".powerline"
-  link "${DIR}/custom/powerline/custom.py" ".powerline/segments/"
+  link "${dir}/custom/powerline" ".config/"
+  link "${dir}/custom/powerline/custom.py" ".powerline/segments/"
 }
 
+# install_vim_plugins
 install_vim_plugins() {
   prompt "install vim plugins"
   [[ -e ".vim/bundle/Vundle.vim" ]] ||
@@ -141,25 +148,11 @@ install_vim_plugins() {
   .vim/bundle/YouCompleteMe/install.sh >/dev/null
 }
 
+# install_kde_solarized DIR
 install_kde_solarized() {
+  local -r dir="$1"
   if [[ -d ~/.kde || -d ~/.kde4 ]]; then
     prompt "install Solarized colour schemes for KDE"
-    ( cd "${DIR}/custom/kde-solarized"; ./install.sh; )
+    ( cd "${dir}/custom/kde-solarized"; ./install.sh; )
   fi
 }
-
-main() {
-  set_globals
-
-  cd ~
-
-  #install_deps
-  #link_dotfiles
-  install_powerline
-  install_vim_plugins
-  install_kde_solarized
-
-  echo "Reopen any bash sessions to make use of the new goodness."
-}
-
-main "$@"

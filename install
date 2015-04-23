@@ -1,0 +1,22 @@
+#!/bin/sh
+main() {
+  local -r dir="$(realpath -s "$(dirname -- "$0")")"
+  source "${dir}/custom/install.sh"
+
+  set_globals
+
+  cd ~
+
+  link "${GIT_PS1}" ".git-prompt.sh"
+  link "${POWERLINE}" ".powerline"
+
+  install_deps
+  link_dotfiles "${dir}"
+  install_powerline "${dir}"
+  install_vim_plugins
+  install_kde_solarized "${dir}"
+
+  echo "Reopen any bash sessions to make use of the new goodness."
+}
+
+main "$@"

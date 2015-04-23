@@ -1,0 +1,3 @@
+#!/bin/sh
+source ~/.git-prompt.sh
+__git_ps1

@@ -41,11 +41,6 @@ PS2="$comment> $default"
 
 set -o vi
 
-function _tmux {
-  session="$(tmux ls | sed -n -r '/attached/ !{s/^([^:]+):.*/\1/;x}; ${x;p}')"
-  tmux ${session:+attach}
-}
-
 function selectHost {
   [[ "$TMUX" ]] && return 1
 
@@ -54,12 +49,12 @@ function selectHost {
     hosts=($(sed -nE 's/\s*Host\s+(\S+).*/\1/p' ~/.ssh/config))
   fi
 
-  [[ ${#hosts[@]} == 0 ]] && { _tmux; return; }
+  [[ ${#hosts[@]} == 0 ]] && { tmx; return; }
 
   PS3='Select host: '
   select opt in "localhost" ${hosts[@]/"$(hostname -s)"}; do
     if [[ "$opt" == "localhost" ]]; then
-      _tmux
+      tmx
     else
       ssh "$opt" 2>/dev/null
     fi

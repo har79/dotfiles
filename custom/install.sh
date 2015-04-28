@@ -118,12 +118,18 @@ link_dotfiles() {
     esac
   done
 
-  local bashrc
-  local srcbashrc
-  for bashrc in $(ls "${dir}"/.bashrc.*); do
-    srcbashrc=". '${PWD}/$(basename -- "${bashrc}")'"
-    if ! grep -Fxq "${srcbashrc}" .bashrc; then
-      echo "${srcbashrc}" >> .bashrc
+  source_rc "bashrc"
+  source_rc "vimrc"
+}
+
+# source_rc RC
+source_rc() {
+  local -r rc="$1"
+  local target src
+  for target in $(ls "${dir}/.${rc}."*); do
+    src="source ${PWD}/$(basename -- "${target}")"
+    if ! grep -Fxq "${src}" ".${rc}" 2>/dev/null; then
+      echo "${src}" >> ".${rc}"
     fi
   done
 }

@@ -9,9 +9,12 @@ Plugin 'bufexplorer.zip'
 Plugin 'dart-lang/dart-vim-plugin'
 Plugin 'derekwyatt/vim-scala'
 Plugin 'fatih/vim-go'
+Plugin 'FelikZ/ctrlp-py-matcher'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
-Plugin 'Valloric/YouCompleteMe'
+if !exists("ycmVundle") || ycmVundle
+  Plugin 'Valloric/YouCompleteMe'
+endif
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-session'
 
@@ -38,7 +41,18 @@ let g:bufExplorerSortBy='fullpath'
 let g:bufExplorerSplitOutPathName=0
 
 " CtrlP
-"let g:ctrlp_working_path_mode=''
+"let g:ctrlp_clear_cache_on_exit=0
+let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
+      \ --ignore .git
+      \ --ignore .svn
+      \ --ignore .hg
+      \ --ignore .DS_Store
+      \ --ignore "**/*.pyc"
+      \ --ignore .git5_specs
+      \ --ignore review
+      \ -g ""'
+let g:ctrlp_working_path_mode=''
 
 " vim-go
 let g:go_bin_path=expand("~/.vim-go")

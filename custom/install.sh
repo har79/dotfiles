@@ -96,6 +96,13 @@ prompt() {
   read
 }
 
+# link_dotfiles DIR
+git_submodules() {
+  local -r dir="$1"
+  prompt "update git submodules"
+  ( cd "${dir}" && git submodule update --init )
+}
+
 # install_deps
 install_deps() {
   local -r deps="cmake gcc-c++ mercurial python-devel python-pip tmux"

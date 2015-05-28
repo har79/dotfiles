@@ -7,11 +7,12 @@ main() {
 
   cd ~
 
-  link "${GIT_PS1}" ".git-prompt.sh"
-  link "${POWERLINE}" ".powerline"
+  git_submodules "${dir}"
 
   install_deps
   link_dotfiles "${dir}"
+  link "${GIT_PS1}" ".git-prompt.sh"
+  link "${POWERLINE}" ".powerline"
   install_powerline "${dir}"
   install_vim_plugins
   install_kde_solarized "${dir}"

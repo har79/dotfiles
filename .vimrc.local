@@ -122,11 +122,11 @@ nnoremap <leader>gr :Gremove <CR>
 nnoremap <leader>gs :Gstatus <CR>
 nnoremap <leader>gw :Gwrite <CR>
 
-" Remove trailing whitespace
-nnoremap <leader>rs :%s/\s\+$//e<CR>
-
 " Reselect text that was just pasted
 nnoremap <leader>v V`]
+
+" Trim trailing whitespace
+nnoremap <leader>tw :%s/\s\+$//e<CR>
 
 " Move around, and split, windows
 nnoremap <leader>wh <C-w>h

@@ -148,10 +148,13 @@ install_powerline() {
 # install_vim_plugins
 install_vim_plugins() {
   prompt "install vim plugins"
-  [[ -e ".vim/bundle/Vundle.vim" ]] ||
+  if [[ ! -e ".vim/bundle/Vundle.vim" ]]; then
     git clone https://github.com/gmarik/Vundle.vim.git .vim/bundle/Vundle.vim
+  fi
   vim +PluginInstall +GoInstallBinaries +qall
-  .vim/bundle/YouCompleteMe/install.sh >/dev/null
+  if [[ -e ".vim/bundle/YouCompleteMe/install.sh" ]]; then
+    .vim/bundle/YouCompleteMe/install.sh
+  fi
 }
 
 # install_kde_solarized DIR

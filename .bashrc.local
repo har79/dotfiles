@@ -12,6 +12,11 @@ trash () { kioclient move "$@" trash:/; }
 [[ -r ~/.dir_colors ]] && eval "$(dircolors ~/.dir_colors)"
 
 # Powerline
+GIT_PS1_SHOWDIRTYSTATE=true
+GIT_PS1_SHOWSTASHSTATE=true
+GIT_PS1_SHOWUNTRACKEDFILES=true
+GIT_PS1_SHOWUPSTREAM="auto"
+GIT_PS1_HIDE_IF_PWD_IGNORED=true
 . ~/.powerline/bindings/bash/powerline.sh
 
 # Solarized Light

@@ -1,6 +1,6 @@
 [user]
-        name = Harry Cameron
-        email = git@harrycameron.com
+        name = har79
+        email = github@harrycameron.com
 [color]
         status = auto
         branch = auto
@@ -9,3 +9,5 @@
         excludesfile = ~/.gitignore
 [push]
         default = simple
+[credential]
+        helper = cache

@@ -105,7 +105,7 @@ git_submodules() {
 
 # install_deps
 install_deps() {
-  local -r deps="cmake gcc-c++ mercurial python-devel python-pip tmux"
+  local -r deps="cmake gcc-c++ mercurial python-devel python-pip urlview tmux"
   prompt "install the following packages: ${deps}"
   install ${deps}
 }
@@ -150,6 +150,13 @@ install_powerline() {
   pip install --user git+git://github.com/Lokaltog/powerline
   link "${dir}/custom/powerline" ".config/"
   link "${dir}/custom/powerline/custom.py" ".powerline/segments/"
+}
+
+install_tmux_plugins() {
+  prompt "install tmux plugins"
+  if [[ ! -e ".tmux/plugins/tpm/tpm" ]]; then
+    git clone https://github.com/tmux-plugins/tpm .tmux/plugins/tpm
+  fi
 }
 
 # install_vim_plugins

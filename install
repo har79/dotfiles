@@ -14,6 +14,7 @@ main() {
   link "${GIT_PS1}" ".git-prompt.sh"
   link "${POWERLINE}" ".powerline"
   install_powerline "${dir}"
+  install_tmux_plugins
   install_vim_plugins
   install_kde_solarized "${dir}"
 

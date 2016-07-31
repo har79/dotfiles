@@ -33,8 +33,6 @@ syntax on
 " Solarized
 
 set background=light
-"set t_Co=16
-"let g:solarized_termcolors=16
 let g:solarized_termtrans=1
 colorscheme solarized
 

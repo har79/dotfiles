@@ -145,8 +145,6 @@ source_rc() {
 install_powerline() {
   local -r dir="$1"
   prompt "install Powerline"
-  ( cd "${dir}/custom/powerline-fonts"; ./install.sh; )
-  echo -e "\e[0;31mChange the font in your terminal emulator to 'DejaVu Sans Mono for Powerline'.\e[m"
   pip install --user git+git://github.com/Lokaltog/powerline
   link "${dir}/custom/powerline" ".config/"
   link "${dir}/custom/powerline/custom.py" ".powerline/segments/"

@@ -7,7 +7,7 @@
       },
       {
         "function": "powerline.segments.common.time.date",
-        "before": "⌚ ",
+        "before": " ",
         "after": " ",
         "args": {
           "format": "%Y-%m-%d %a %H:%M:%S",

@@ -4,12 +4,11 @@
       {
         "function": "powerline.segments.common.env.user",
         "args": {
-          "hide_user": "harry"
+          "hide_user": "hcameron"
         }
       },
       {
-        "function": "powerline.segments.custom.branch",
-        "before": " "
+        "function": "powerline.segments.custom.branch"
       },
       {
         "function": "powerline.segments.shell.cwd",
@@ -19,8 +18,7 @@
         }
       },
       {
-        "function": "powerline.segments.custom.loginstatus",
-        "before": ""
+        "function": "powerline.segments.custom.loginstatus"
       },
       {
         "function": "powerline.segments.shell.jobnum"

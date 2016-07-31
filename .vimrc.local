@@ -1,38 +1,41 @@
+set nocompatible
+
 " Vundle plugins
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-Plugin 'gmarik/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'FelikZ/ctrlp-py-matcher'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'airblade/vim-gitgutter'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'bufexplorer.zip'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'dart-lang/dart-vim-plugin'
 Plugin 'derekwyatt/vim-scala'
 Plugin 'fatih/vim-go'
-Plugin 'FelikZ/ctrlp-py-matcher'
+Plugin 'itchyny/lightline.vim'
 Plugin 'kien/ctrlp.vim'
+Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'tmux-plugins/vim-tmux'
 Plugin 'tmux-plugins/vim-tmux-focus-events'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-obsession'
 Plugin 'tpope/vim-sensible'
-if !exists("ycmVundle") || ycmVundle
-  Plugin 'Valloric/YouCompleteMe'
-endif
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-session'
 
 call vundle#end()
 filetype plugin indent on
-
-" YCM
-" TODO
+syntax on
 
 " Solarized
 
-let g:solarized_termtrans=1
 set background=light
+"set t_Co=16
+"let g:solarized_termcolors=16
+let g:solarized_termtrans=1
 colorscheme solarized
 
 " BufExplorer
@@ -55,6 +58,45 @@ let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
       \ -g ""'
 let g:ctrlp_working_path_mode=''
 
+" lightline
+
+highlight! StatusLine ctermfg=7
+highlight! StatusLineNC ctermfg=7
+highlight! VertSplit ctermfg=7 ctermbg=10
+
+let g:lightline = {
+\  'colorscheme': 'solarized',
+\  'active': {
+\    'left': [
+\      ['mode', 'paste'],
+\      ['fugitive'],
+\      ['readonly', 'filename', 'modified']
+\    ],
+\    'right': [
+\      ['percent', 'lineinfo'],
+\      ['fileformat', 'fileencoding', 'filetype']
+\    ],
+\  },
+\  'inactive': {
+\    'left': [
+\      ['mode', 'paste'],
+\      ['fugitive'],
+\      ['readonly', 'filename', 'modified']
+\    ],
+\    'right': [
+\      ['percent', 'lineinfo'],
+\      ['fileformat', 'fileencoding', 'filetype']
+\    ],
+\  },
+\  'component_function': {
+\    'fugitive': 'LightLineFugitive',
+\  },
+\}
+
+function! LightLineFugitive()
+  return exists('*fugitive#head') ? fugitive#head() : ''
+endfunction
+
 " vim-go
 let g:go_bin_path=expand("~/.vim-go")
 
@@ -63,16 +105,23 @@ let g:session_autoload='no'
 let g:session_autosave='yes'
 let g:session_autosave_periodic=5
 
+" whitespace
+autocmd BufWritePre * StripWhitespace
+
 " YCM
 let g:ycm_complete_in_comments=1
 
-" Whitespace
-set list listchars=tab:\ \ ,trail:\ 
-highlight SpecialKey ctermbg=Yellow guibg=Yellow
+" Turn off Syntastic gutter markers
+let g:ycm_show_diagnostics_ui = 1
+let g:ycm_enable_diagnostic_signs = 0
+let g:ycm_enable_diagnostic_highlighting = 1
+let g:ycm_echo_current_diagnostic = 1
+
+" Highlight errors and warnings with red/magenta undercurl
+hi SpellBad term=none ctermbg=none cterm=undercurl ctermfg=Red gui=undercurl guisp=Red
+hi SpellCap term=none ctermbg=none cterm=undercurl ctermfg=Magenta gui=undercurl guisp=Magenta
 
 " General
-syntax on
-
 let g:enable_local_swap_dirs=1
 let mapleader=","
 
@@ -86,7 +135,6 @@ set hlsearch
 set incsearch
 set laststatus=2
 set number
-"set pastetoggle=<C-P>
 set shiftwidth=2
 set shortmess=a
 set showmatch
@@ -109,6 +157,8 @@ nnoremap <leader>bs :BufExplorerHorizontalSplit<CR>
 nnoremap <leader>bv :BufExplorerVerticalSplit<CR>
 nnoremap <leader>bx :BufExplorer<CR>
 
+nnoremap <leader>d :YcmCompleter GoToDefinition<CR>
+
 nnoremap <leader>e :CtrlPMixed<CR>
 
 nnoremap <leader>f :e! % <CR>
@@ -117,24 +167,27 @@ nnoremap <leader>gc :Gcommit <CR>
 nnoremap <leader>gd :Gdiff <CR>
 nnoremap <leader>ge :Gedit <CR>
 nnoremap <leader>gf :Gread <CR>
-nnoremap <leader>gg :Git 
-nnoremap <leader>gm :Gmove 
+nnoremap <leader>gg :Git
+nnoremap <leader>gm :Gmove
 nnoremap <leader>gr :Gremove <CR>
 nnoremap <leader>gs :Gstatus <CR>
 nnoremap <leader>gw :Gwrite <CR>
 
-" Remove trailing whitespace
-nnoremap <leader>rw :%s/\s\+$//e<CR>
-nnoremap <leader>rr :source ~/.vimrc <CR>
+nnoremap <leader>p :set invpaste paste?<CR>
 
-" Reselect text that was just pasted
-nnoremap <leader>v V`]
+nnoremap <leader>s :source ~/.vimrc <CR>
 
 " Tabs
 nnoremap <leader>tc :tabnew <CR>
 nnoremap <leader>tn :tabnext <CR>
 nnoremap <leader>tp :tabprevious <CR>
 nnoremap <leader>tq :tabclose <CR>
+
+" Trim trailing whitespace
+nnoremap <leader>tw :%s/\s\+$//e<CR>
+
+" Reselect text that was just pasted
+nnoremap <leader>v V`]
 
 " Move around, and split, windows
 nnoremap <leader>wh <C-w>h

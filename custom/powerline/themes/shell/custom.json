@@ -14,8 +14,7 @@
       {
         "function": "powerline.segments.shell.cwd",
         "args": {
-          "use_path_separator": true,
-          "dir_shorten_len": 3
+          "use_path_separator": true
         }
       },
       {

@@ -1,18 +1,18 @@
 {
   "name": "Custom colour scheme for shell, based on solarized light.",
   "groups": {
-    "user": { "fg": "solarized:base3", "bg": "solarized:red" },
+    "user": { "fg": "solarized:red", "bg": "solarized:base2" },
     "superuser": { "fg": "solarized:base3", "bg": "solarized:red", "attr": ["bold"] },
 
-    "branch": { "fg": "solarized:base3", "bg": "solarized:violet" },
-    "branch_clean": { "fg": "solarized:base3", "bg": "solarized:violet" },
-    "branch_dirty": { "fg": "solarized:base3", "bg": "solarized:violet" },
+    "branch": { "fg": "solarized:violet", "bg": "solarized:base2" },
+    "branch_clean": { "fg": "solarized:violet", "bg": "solarized:base2" },
+    "branch_dirty": { "fg": "solarized:violet", "bg": "solarized:base2" },
 
     "cwd": { "fg": "solarized:blue", "bg": "solarized:base2" },
     "cwd:current_folder": { "fg": "solarized:blue", "bg": "solarized:base2" },
     "cwd:divider": { "fg": "solarized:blue", "bg": "solarized:base2" },
 
-    "loginstatus": { "fg": "solarized:base3", "bg": "solarized:magenta" },
+    "loginstatus": { "fg": "solarized:magenta", "bg": "solarized:base2" },
 
     "jobnum": { "fg": "solarized:base3", "bg": "solarized:cyan" },
 

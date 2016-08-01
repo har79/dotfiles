@@ -3,15 +3,19 @@
   "groups": {
     "user": { "fg": "solarized:base3", "bg": "solarized:red" },
     "superuser": { "fg": "solarized:base3", "bg": "solarized:red", "attr": ["bold"] },
-    "hostname": { "fg": "solarized:base3", "bg": "solarized:green" },
-    "cwd": { "fg": "solarized:blue", "bg": "solarized:base2" },
-    "cwd:current_folder": { "fg": "solarized:blue", "bg": "solarized:base2" },
-    "cwd:divider": { "fg": "solarized:blue", "bg": "solarized:base2" },
+
     "branch": { "fg": "solarized:base3", "bg": "solarized:violet" },
     "branch_clean": { "fg": "solarized:base3", "bg": "solarized:violet" },
     "branch_dirty": { "fg": "solarized:base3", "bg": "solarized:violet" },
+
+    "cwd": { "fg": "solarized:blue", "bg": "solarized:base2" },
+    "cwd:current_folder": { "fg": "solarized:blue", "bg": "solarized:base2" },
+    "cwd:divider": { "fg": "solarized:blue", "bg": "solarized:base2" },
+
     "loginstatus": { "fg": "solarized:base3", "bg": "solarized:magenta" },
+
     "jobnum": { "fg": "solarized:base3", "bg": "solarized:cyan" },
+
     "exit_fail": { "fg": "solarized:base3", "bg": "solarized:yellow" }
   }
 }

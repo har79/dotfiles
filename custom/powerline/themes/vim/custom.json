@@ -16,12 +16,7 @@
 			{
 				"function": "branch",
         "before": "",
-				"after": " ",
-				"draw_soft_divider": false,
 				"priority": 30
-			},
-			{
-				"function": "file_vcs_status"
 			},
 			{
 				"function": "readonly_indicator",
@@ -39,11 +34,16 @@
 			},
 			{
 				"function": "file_name",
+        "after": " ",
+				"draw_soft_divider": false
+			},
+			{
+				"function": "file_vcs_status",
 				"draw_soft_divider": false
 			},
 			{
 				"function": "modified_indicator",
-				"before": " ",
+				"after": " ",
 				"draw_soft_divider": false
 			},
 			{

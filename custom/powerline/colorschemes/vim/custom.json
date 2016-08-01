@@ -11,15 +11,15 @@
 
 		"branch": { "fg": "solarized:violet", "bg": "solarized:base2" },
 		"branch:divider": { "fg": "solarized:violet", "bg": "solarized:base2" },
-		"file_vcs_status": { "fg": "solarized:violet", "bg": "solarized:base2" },
-		"file_vcs_status_M": { "fg": "solarized:violet", "bg": "solarized:base2" },
-		"file_vcs_status_A": { "fg": "solarized:violet", "bg": "solarized:base2" },
 
 		"readonly_indicator": { "fg": "solarized:red", "bg": "solarized:base2" },
 
-		"information:additional": { "fg": "solarized:base0", "bg": "solarized:base2" },
+		"information:additional": { "fg": "solarized:base00", "bg": "solarized:base2" },
 		"file_name": { "fg": "solarized:base01", "bg": "solarized:base2" },
 		"file_name_no_file": { "fg": "solarized:base01", "bg": "solarized:base2" },
+		"file_vcs_status": { "fg": "solarized:yellow", "bg": "solarized:base2" },
+		"file_vcs_status_M": { "fg": "solarized:yellow", "bg": "solarized:base2" },
+		"file_vcs_status_A": { "fg": "solarized:yellow", "bg": "solarized:base2" },
 		"modified_indicator": { "fg": "solarized:yellow", "bg": "solarized:base2" },
 
 		"information:unimportant": { "fg": "solarized:base1", "bg": "solarized:base2" },
@@ -31,8 +31,17 @@
 	"mode_translations": {
 		"nc": {
 			"colors": {
+				"solarized:base0": "solarized:base1",
+				"solarized:base00": "solarized:base1",
+				"solarized:base01": "solarized:base1",
 				"solarized:blue": "solarized:base1",
-				"solarized:violet": "solarized:base0"
+				"solarized:cyan": "solarized:base1",
+				"solarized:green": "solarized:base1",
+				"solarized:magenta": "solarized:base1",
+				"solarized:orange": "solarized:base1",
+				"solarized:red": "solarized:base1",
+				"solarized:yellow": "solarized:base1",
+				"solarized:violet": "solarized:base1"
 			}
 		},
 		"i": {

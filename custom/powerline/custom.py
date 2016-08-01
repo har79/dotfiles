@@ -2,6 +2,13 @@
 
 import subprocess
 
+from powerline.theme import requires_segment_info
+
+
+@requires_segment_info
+def mode(pl, segment_info):
+  return '{0:2}'.format(segment_info['mode'])
+
 
 def branch(pl):
   status = subprocess.check_output('__git_ps1')
@@ -11,6 +18,6 @@ def branch(pl):
 def loginstatus(pl):
   try:
     output = subprocess.check_output('loginstatus', stderr=subprocess.STDOUT)
-    return output
   except subprocess.CalledProcessError as e:
-    return e.output
+    output = e.output
+  return output or None

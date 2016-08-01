@@ -2,20 +2,8 @@
   "segments": {
     "right": [
       {
-        "function": "powerline.segments.common.sys.system_load",
-        "priority": 50
-      },
-      {
-        "function": "powerline.segments.common.time.date",
-        "before": " ",
-        "after": " ",
-        "args": {
-          "format": "%Y-%m-%d %a %H:%M:%S",
-          "istime": true
-        }
-      },
-      {
-        "function": "powerline.segments.common.net.hostname"
+        "function": "powerline.segments.common.net.hostname",
+        "before": ""
       }
     ]
   }

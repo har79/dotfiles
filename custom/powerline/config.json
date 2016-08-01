@@ -11,6 +11,10 @@
     "tmux": {
       "colorscheme": "custom",
       "theme": "custom"
+    },
+    "vim": {
+      "colorscheme": "custom",
+      "theme": "custom"
     }
   }
 }

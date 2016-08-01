@@ -1,5 +1,10 @@
 set nocompatible
 
+" Powerline
+python from powerline.vim import setup as powerline_setup
+python powerline_setup()
+python del powerline_setup
+
 " Vundle plugins
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -15,7 +20,6 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'dart-lang/dart-vim-plugin'
 Plugin 'derekwyatt/vim-scala'
 Plugin 'fatih/vim-go'
-Plugin 'itchyny/lightline.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'tmux-plugins/vim-tmux'
@@ -36,6 +40,10 @@ set background=light
 let g:solarized_termtrans=1
 colorscheme solarized
 
+highlight! StatusLine ctermfg=7
+highlight! StatusLineNC ctermfg=7
+highlight! VertSplit ctermfg=7 ctermbg=7
+
 " BufExplorer
 let g:bufExplorerFindActive=0
 let g:bufExplorerShowRelativePath=1
@@ -55,45 +63,6 @@ let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
       \ --ignore review
       \ -g ""'
 let g:ctrlp_working_path_mode=''
-
-" lightline
-
-highlight! StatusLine ctermfg=7
-highlight! StatusLineNC ctermfg=7
-highlight! VertSplit ctermfg=7 ctermbg=10
-
-let g:lightline = {
-\  'colorscheme': 'solarized',
-\  'active': {
-\    'left': [
-\      ['mode', 'paste'],
-\      ['fugitive'],
-\      ['readonly', 'filename', 'modified']
-\    ],
-\    'right': [
-\      ['percent', 'lineinfo'],
-\      ['fileformat', 'fileencoding', 'filetype']
-\    ],
-\  },
-\  'inactive': {
-\    'left': [
-\      ['mode', 'paste'],
-\      ['fugitive'],
-\      ['readonly', 'filename', 'modified']
-\    ],
-\    'right': [
-\      ['percent', 'lineinfo'],
-\      ['fileformat', 'fileencoding', 'filetype']
-\    ],
-\  },
-\  'component_function': {
-\    'fugitive': 'LightLineFugitive',
-\  },
-\}
-
-function! LightLineFugitive()
-  return exists('*fugitive#head') ? fugitive#head() : ''
-endfunction
 
 " vim-go
 let g:go_bin_path=expand("~/.vim-go")

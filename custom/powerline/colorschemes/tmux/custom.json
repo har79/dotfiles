@@ -1,10 +1,22 @@
 {
   "name": "Custom colour scheme for tmux, based on solarized light.",
   "groups": {
-    "background:divider": { "fg": "yellow", "bg": "yellow" },
-    "hostname": { "fg": "base03", "bg": "base1", "attr": ["bold"] },
-    "time": { "fg": "base03", "bg": "base0"},
-    "time:divider": { "fg": "yellow", "bg": "yellow" },
-    "system_load": { "fg": "base03", "bg": "base00" }
+    "background": { "fg": "solarized:base03", "bg": "solarized:base2" },
+
+    "window": {"fg": "solarized:base0", "bg": "solarized:base2"},
+    "window:divider": {"fg": "solarized:base1", "bg": "solarized:base2"},
+    "window_status": {"fg": "solarized:base0", "bg": "solarized:base2"},
+    "active_window_status": {"fg": "solarized:base0", "bg": "solarized:base2"},
+
+    "window:current": {"fg": "solarized:orange", "bg": "solarized:base2"},
+    "window_name": {"fg": "solarized:orange", "bg": "solarized:base2"},
+
+    "session": { "fg": "solarized:base1", "bg": "solarized:base2"},
+    "session:prefix": { "fg": "solarized:base1", "bg": "solarized:base2"},
+
+    "activity_status": { "fg": "solarized:yellow", "bg": "solarized:base2"},
+    "bell_status": { "fg": "solarized:red", "bg": "solarized:base2"},
+
+    "hostname": { "fg": "solarized:base1", "bg": "solarized:base2"}
   }
 }

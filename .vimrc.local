@@ -160,9 +160,12 @@ nnoremap <leader>wj <C-w>j
 nnoremap <leader>wk <C-w>k
 nnoremap <leader>wl <C-w>l
 nnoremap <leader>wq <C-w>q
+nnoremap <leader>wr <C-w>=
 nnoremap <leader>ws <C-w>s<C-w>j
 nnoremap <leader>wv <C-w>v<C-w>l
-nnoremap <leader>ww <C-w>=
+
+nnoremap <leader>wn :noautocmd w <CR>
+nnoremap <leader>ww :w <CR>
 
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j

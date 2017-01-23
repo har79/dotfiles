@@ -62,10 +62,6 @@ let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
       \ -g ""'
 let g:ctrlp_working_path_mode=''
 
-" dart
-
-au BufWritePost *.dart !dartfmt -tw <afile>
-
 " vim-go
 let g:go_bin_path=expand("~/.vim-go")
 

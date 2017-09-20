@@ -2,11 +2,13 @@ set nocompatible
 filetype off
 
 " Powerline
-python from powerline.vim import setup as powerline_setup
-python powerline_setup()
-python del powerline_setup
+if !has('nvim')
+  python from powerline.vim import setup as powerline_setup
+  python powerline_setup()
+  python del powerline_setup
+endif
 
-call plug#begin('~/.vim/plugged')
+call plug#begin(has('nvim') ? '~/.local/share/nvim/plugged' : '~/.vim/plugged')
 
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'Valloric/YouCompleteMe'

@@ -40,5 +40,5 @@ function selectHost {
   done
 }
 
-selectHost && exit
+selectHost
 

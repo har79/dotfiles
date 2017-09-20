@@ -10,51 +10,40 @@ endif
 
 call plug#begin(has('nvim') ? '~/.local/share/nvim/plugged' : '~/.vim/plugged')
 
-Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'Valloric/YouCompleteMe'
+let g:ycm_complete_in_comments=1
+let g:ycm_show_diagnostics_ui = 1
+let g:ycm_enable_diagnostic_signs = 0
+let g:ycm_enable_diagnostic_highlighting = 1
+let g:ycm_echo_current_diagnostic = 1
+
 Plug 'airblade/vim-gitgutter'
+
 Plug 'altercation/vim-colors-solarized'
-Plug 'jlanzarotta/bufexplorer'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'dart-lang/dart-vim-plugin'
-Plug 'derekwyatt/vim-scala'
-Plug 'fatih/vim-go'
-Plug 'kien/ctrlp.vim'
-Plug 'natebosch/vim-lsc'
-Plug 'ntpeters/vim-better-whitespace'
-Plug 'tmux-plugins/vim-tmux'
-Plug 'tmux-plugins/vim-tmux-focus-events'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-obsession'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-speeddating'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-vinegar'
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-session'
-
-call plug#end()
-
-" Solarized
-
 set background=light
 let g:solarized_termtrans=1
 colorscheme solarized
-
 highlight! StatusLine ctermfg=7
 highlight! StatusLineNC ctermfg=7
 highlight! VertSplit ctermfg=7 ctermbg=7
 
-" BufExplorer
+Plug 'jlanzarotta/bufexplorer'
 let g:bufExplorerFindActive=0
 let g:bufExplorerShowRelativePath=1
 let g:bufExplorerSortBy='fullpath'
 let g:bufExplorerSplitOutPathName=0
 
-" CtrlP
+Plug 'christoomey/vim-tmux-navigator'
+
+Plug 'dart-lang/dart-vim-plugin'
+
+Plug 'derekwyatt/vim-scala'
+
+Plug 'fatih/vim-go'
+let g:go_bin_path=expand("~/.vim-go")
+
+Plug 'kien/ctrlp.vim'
+Plug 'FelikZ/ctrlp-py-matcher'
 "let g:ctrlp_clear_cache_on_exit=0
 let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
@@ -68,25 +57,30 @@ let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
       \ -g ""'
 let g:ctrlp_working_path_mode=''
 
-" vim-go
-let g:go_bin_path=expand("~/.vim-go")
+Plug 'natebosch/vim-lsc'
 
-" vim-session
+Plug 'ntpeters/vim-better-whitespace'
+autocmd BufWritePre * StripWhitespace
+
+Plug 'tmux-plugins/vim-tmux'
+Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-obsession'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-speeddating'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-vinegar'
+Plug 'xolox/vim-misc'
+
+" Plug 'xolox/vim-session'
 let g:session_autoload='no'
 let g:session_autosave='yes'
 let g:session_autosave_periodic=5
 
-" whitespace
-autocmd BufWritePre * StripWhitespace
-
-" YCM
-let g:ycm_complete_in_comments=1
-
-" Turn off Syntastic gutter markers
-let g:ycm_show_diagnostics_ui = 1
-let g:ycm_enable_diagnostic_signs = 0
-let g:ycm_enable_diagnostic_highlighting = 1
-let g:ycm_echo_current_diagnostic = 1
+call plug#end()
 
 " Highlight errors and warnings with red/magenta undercurl
 hi SpellBad term=none ctermbg=none cterm=undercurl ctermfg=Red gui=undercurl guisp=Red

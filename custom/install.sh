@@ -24,7 +24,7 @@ link () {
   readonly name
 
   echo -n "${name} -> ${target}"
-  if [[ -e "${target}" ]]; then
+  if [[ ! -e "${target}" ]]; then
     echo " (target doesn't exist)"
   elif [[ "$(readlink ${name})" == "${target}" ]]; then
     echo " (already exists)"
@@ -36,6 +36,22 @@ link () {
       echo ""
     fi
     ln -s "${target}" "${name}"
+  fi
+}
+
+# source_rc TARGET RC
+#
+# Sources TARGET from RC.
+source_rc() {
+  local -r target="$1"
+  local -r rc="$2"
+  local -r src="source ${target}"
+  echo -n "${rc} => ${target}"
+  if grep -Fxq "${src}" "${rc}" 2>/dev/null; then
+    echo " (already exists)"
+  else
+    echo ""
+    echo "${src}" >> "${rc}"
   fi
 }
 
@@ -51,27 +67,15 @@ prompt() {
 # link_dotfiles DIR
 link_dotfiles() {
   local -r dir="$1"
-  prompt "link dotfiles"
+  prompt "link (->) and source (=>) dotfiles"
 
   local file
-  for file in .bashrc.local bin.local .dir_colors .gitconfig .nvimrc.local .tmux.conf; do
+  for file in bin.local .dir_colors .gitconfig .tmux.conf; do
     link "${dir}/${file}" "${file}"
   done
 
-  source_rc "bashrc"
-  source_rc "vimrc"
-}
-
-# source_rc RC
-source_rc() {
-  local -r rc="$1"
-  local target src
-  for target in $(ls "${dir}/.${rc}."*); do
-    src="source ${PWD}/$(basename -- "${target}")"
-    if ! grep -Fxq "${src}" ".${rc}" 2>/dev/null; then
-      echo "${src}" >> ".${rc}"
-    fi
-  done
+  source_rc "${dir}/bashrc" ".bashrc"
+  source_rc "${dir}/nvimrc" ".config/nvim/init.vim"
 }
 
 install_tmux_plugins() {

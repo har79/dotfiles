@@ -83,6 +83,11 @@ setPrompt() {
 
 setPrompt
 
+tmx() {
+  session="$(tmux ls | sed -n -r '/attached/ !{s/^([^:]+):.*/\1/;x}; ${x;p}')"
+  tmux ${session:+attach}
+}
+
 function selectHost {
   [[ "$TMUX" ]] && return 1
 

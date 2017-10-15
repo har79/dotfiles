@@ -64,22 +64,7 @@ prompt() {
   read
 }
 
-# link_dotfiles DIR
-link_dotfiles() {
-  local -r dir="$1"
-  prompt "link (->) and source (=>) dotfiles"
-
-  local file
-  for file in bin.local .dir_colors .gitconfig .tmux.conf; do
-    link "${dir}/${file}" "${file}"
-  done
-
-  source_rc "${dir}/bashrc" ".bashrc"
-  source_rc "${dir}/nvimrc" ".config/nvim/init.vim"
-}
-
 install_tmux_plugins() {
-  prompt "install tmux plugins"
   if [[ ! -e ".tmux/plugins/tpm/tpm" ]]; then
     git clone https://github.com/tmux-plugins/tpm .tmux/plugins/tpm
   fi
@@ -87,8 +72,7 @@ install_tmux_plugins() {
 
 # install_vim_plugins
 install_vim_plugins() {
-  prompt "install vim plugins"
   curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  nvim +PlugInstall +GoInstallBinaries +qall
+  nvim +PlugClean +PlugInstall +GoInstallBinaries +qall
 }

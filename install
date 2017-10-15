@@ -5,8 +5,19 @@ main() {
 
   cd ~
 
-  link_dotfiles "${dir}"
+  prompt "link (->) and source (=>) dotfiles"
+  link "${dir}/bin/ddc" "bin/ddc"
+  link "${dir}/dir_colors" ".dir_colors"
+  link "${dir}/gitconfig" ".gitconfig"
+  link "${dir}/gitignore" ".gitignore"
+  link "${dir}/tmux.conf" ".tmux.conf"
+  source_rc "${dir}/bashrc" ".bashrc"
+  source_rc "${dir}/nvimrc" ".config/nvim/init.vim"
+
+  prompt "install tmux plugins"
   install_tmux_plugins
+
+  prompt "install vim plugins"
   install_vim_plugins
 
   echo "Reopen any bash sessions to make use of the new goodness."

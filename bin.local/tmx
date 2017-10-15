@@ -1,4 +1,0 @@
-#!/bin/sh
-
-session="$(tmux ls | sed -n -r '/attached/ !{s/^([^:]+):.*/\1/;x}; ${x;p}')"
-tmux ${session:+attach}

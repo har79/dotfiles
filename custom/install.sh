@@ -24,7 +24,9 @@ link () {
   readonly name
 
   echo -n "${name} -> ${target}"
-  if [[ "$(readlink ${name})" == "${target}" ]]; then
+  if [[ -e "${target}" ]]; then
+    echo " (target doesn't exist)"
+  elif [[ "$(readlink ${name})" == "${target}" ]]; then
     echo " (already exists)"
   else
     if [[ -e "${name}" || -L "${name}" ]]; then
@@ -51,14 +53,9 @@ link_dotfiles() {
   local -r dir="$1"
   prompt "link dotfiles"
 
-  [[ -e "${dir}/.gitignore" ]] && link "${dir}/.gitignore" ".gitignore"
-
   local file
-  for file in $(ls -A "${dir}"); do
-    case "${file}" in
-      ".git" | ".gitignore" | ".gitmodules" | "custom" | "external" | "install" | "LICENSE" ) ;;
-      *) gitignore  "${file}" || link "${dir}/${file}" "${file}" ;;
-    esac
+  for file in .bashrc.local bin.local .dir_colors .gitconfig .nvimrc.local .tmux.conf; do
+    link "${dir}/${file}" "${file}"
   done
 
   source_rc "bashrc"

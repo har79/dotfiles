@@ -75,7 +75,7 @@ setPrompt() {
   local -r host="$green\h$default:"
   local -r cwd="$blue\w"
   local -r git="$violet\$(__git_ps1)"
-  # TODO(hcameron) add mercurial support
+  # TODO add mercurial support
 
   export PS2="> $default"
   export PS1="\n$last$jobnum $user$host$cwd$git\n$PS2"

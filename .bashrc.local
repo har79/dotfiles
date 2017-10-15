@@ -16,9 +16,44 @@ export PATH="${PATH}"\
 
 [[ -r ~/.dir_colors ]] && eval "$(dircolors ~/.dir_colors)"
 
-. ~/.powerline/bindings/bash/powerline.sh
-
 set -o vi
+
+setPrompt() {
+  # Solarized Light
+  local -r default="\[\e[m"
+  local -r hl="\[\e[47m"
+  local -r base03="\[\e[1;30m"
+  local -r base02="\[\e[0;30m"
+  local -r base01="\[\e[1;32m"
+  local -r base00="\[\e[1;33m"
+  local -r base0="\[\e[1;34m"
+  local -r base1="\[\e[1;36m"
+  local -r base2="\[\e[0;37m"
+  local -r base3="\[\e[1;37m"
+  local -r red="\[\e[0;31m"
+  local -r orange="\[\e[1;31m"
+  local -r yellow="\[\e[0;33m"
+  local -r green="\[\e[0;32m"
+  local -r cyan="\[\e[0;36m"
+  local -r blue="\[\e[0;34m"
+  local -r violet="\[\e[1;35m"
+  local -r magenta="\[\e[0;35m"
+
+  export PROMPT_COMMAND='last="$?"'
+
+  local -r last="$base1\$([[ \$last == 0 ]] || echo \"$yellow\")$hl \$last"
+  local -r jobnum="$base1\$([[ \j == 0 ]] || echo \"$cyan$hl [\j]\")"
+  local -r user="$red\u$default@"
+  local -r host="$green\h$default:"
+  local -r cwd="$blue\w"
+  local -r git="$violet\$(__git_ps1)"
+  # TODO(hcameron) add mercurial support
+
+  export PS2="> $default"
+  export PS1="\n$last$jobnum $user$host$cwd$git\n$PS2"
+}
+
+setPrompt
 
 function selectHost {
   [[ "$TMUX" ]] && return 1

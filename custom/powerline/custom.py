@@ -13,11 +13,3 @@ def mode(pl, segment_info):
 def branch(pl):
   status = subprocess.check_output('__git_ps1')
   return status[2:-1] if status else None
-
-
-def loginstatus(pl):
-  try:
-    output = subprocess.check_output('loginstatus', stderr=subprocess.STDOUT)
-  except subprocess.CalledProcessError as e:
-    output = e.output
-  return output or None

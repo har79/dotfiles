@@ -1,6 +1,0 @@
-[submodule "custom/kde-solarized"]
-	path = custom/kde-solarized
-	url = https://github.com/hayalci/kde-colors-solarized
-[submodule "custom/intellij-colors-solarized"]
-	path = custom/intellij-colors-solarized
-	url = https://github.com/jkaving/intellij-colors-solarized

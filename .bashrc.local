@@ -1,5 +1,33 @@
 shopt -s expand_aliases
-[[ -r ~/.alias ]] && source ~/.alias
+
+alias +='pushd .'
+alias -- -='popd'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias beep='echo -en "\007"'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias gad='git add -u'
+alias gci='git commit'
+alias gco='git checkout'
+alias gdf='git diff'
+alias gdc='git diff --cached'
+alias gst='git status'
+alias gitgraph='git log --branches --date-order --graph --format=format:"%C(auto)%h %Cblue%d%Creset%C(auto) %s"'
+alias grep='grep --color=auto'
+alias l='ll -a'
+alias la='ls -a'
+alias ll='ls -lh'
+alias loginstatus='true'
+alias ls='ls --color=auto'
+alias md='mkdir -p'
+alias o='less'
+alias page='sed -E "s/(.{$(tput cols)}).*/\1/;$(($(tput lines)-$(echo -en $PS1 | wc -l)))q"'
+alias rd='rmdir'
+alias tmux='tmux -2'
+alias unmount=umount
 
 export EDITOR=/usr/bin/nvim
 

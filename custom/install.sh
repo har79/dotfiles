@@ -1,61 +1,11 @@
 #!/bin/sh
 set -eu
 
-function set_globals {
-  # Globals
-  readonly OS="$(uname)"
-  if [[ "${OS}" == "Linux" ]]; then
-    readonly DISTRO="$(lsb_release -si)"
-  fi
-
-  case "${OS}" in
-    "Linux")
-      GIT_PS1="/usr/lib/git-core/git-sh-prompt"
-      POWERLINE="$(ls -d ~/.local/lib/python*/site-packages/powerline/)"
-      case "${DISTRO}" in
-        "openSUSE project")
-          INSTALL="zypper in"
-          ;;
-        "Ubuntu")
-          INSTALL="aptitude install"
-          ;;
-        *)
-          err_unsupported "Linux distro \"${DISTRO}\""
-      esac
-      ;;
-    "Darwin")
-      GIT_PS1="$(brew --prefix)/etc/bash_completion.d/git-prompt.sh"
-      INSTALL="brew install"
-      POWERLINE="~/Library/Python/2.7/lib/python/site-packages/powerline"
-      ;;
-    *)
-      err_unsupported "Operating system \"${OS}\""
-  esac
-  readonly GIT_PS1
-  readonly INSTALL
-  readonly POWERLINE
-}
-
-# err_unsupported SYSTEM
-#
-# Prints "SYSTEM is not supported" to stdout, then exits with status 64.
-err_unsupported() {
-  echo "$1 is not supported." >&2
-  exit 64
-}
-
 gitignore() {
   while read glob; do
     [[ "$1" == ${glob} ]] && return 0
   done < ~/.gitignore
   return 1
-}
-
-# install PKG [PKG]...
-#
-# Installs PKG.
-install() {
-  sudo ${INSTALL} "$@"
 }
 
 # link TARGET NAME
@@ -97,20 +47,6 @@ prompt() {
 }
 
 # link_dotfiles DIR
-git_submodules() {
-  local -r dir="$1"
-  prompt "update git submodules"
-  ( cd "${dir}" && git submodule update --init )
-}
-
-# install_deps
-install_deps() {
-  local -r deps="cmake gcc-c++ mercurial python-devel python-pip urlview tmux"
-  prompt "install the following packages: ${deps}"
-  install ${deps}
-}
-
-# link_dotfiles DIR
 link_dotfiles() {
   local -r dir="$1"
   prompt "link dotfiles"
@@ -141,15 +77,6 @@ source_rc() {
   done
 }
 
-# install_powerline DIR
-install_powerline() {
-  local -r dir="$1"
-  prompt "install Powerline"
-  pip install --user git+git://github.com/Lokaltog/powerline
-  link "${dir}/custom/powerline" ".config/"
-  link "${dir}/custom/powerline/custom.py" ".powerline/segments/"
-}
-
 install_tmux_plugins() {
   prompt "install tmux plugins"
   if [[ ! -e ".tmux/plugins/tpm/tpm" ]]; then
@@ -160,20 +87,7 @@ install_tmux_plugins() {
 # install_vim_plugins
 install_vim_plugins() {
   prompt "install vim plugins"
-  if [[ ! -e ".vim/bundle/Vundle.vim" ]]; then
-    git clone https://github.com/gmarik/Vundle.vim.git .vim/bundle/Vundle.vim
-  fi
-  vim +PluginInstall +GoInstallBinaries +qall
-  if [[ -e ".vim/bundle/YouCompleteMe/install.sh" ]]; then
-    .vim/bundle/YouCompleteMe/install.sh
-  fi
-}
-
-# install_kde_solarized DIR
-install_kde_solarized() {
-  local -r dir="$1"
-  if [[ -d ~/.kde || -d ~/.kde4 ]]; then
-    prompt "install Solarized colour schemes for KDE"
-    ( cd "${dir}/custom/kde-solarized"; ./install.sh; )
-  fi
+  curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  nvim +PlugInstall +GoInstallBinaries +qall
 }

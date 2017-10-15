@@ -3,20 +3,11 @@ main() {
   local -r dir="$(realpath -s "$(dirname -- "$0")")"
   source "${dir}/custom/install.sh"
 
-  set_globals
-
   cd ~
 
-  git_submodules "${dir}"
-
-  install_deps
   link_dotfiles "${dir}"
-  link "${GIT_PS1}" ".git-prompt.sh"
-  link "${POWERLINE}" ".powerline"
-  install_powerline "${dir}"
   install_tmux_plugins
   install_vim_plugins
-  install_kde_solarized "${dir}"
 
   echo "Reopen any bash sessions to make use of the new goodness."
 }

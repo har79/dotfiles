@@ -1,13 +1,6 @@
 #!/bin/sh
 set -eu
 
-gitignore() {
-  while read glob; do
-    [[ "$1" == ${glob} ]] && return 0
-  done < ~/.gitignore
-  return 1
-}
-
 # link TARGET NAME
 #
 # Creates a symbolic link from NAME to TARGET, printing the result.

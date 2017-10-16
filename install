@@ -51,8 +51,7 @@ source_rc() {
 #
 # Prints "Press [Enter] to MSG", then waits for [Enter] to be pressed.
 prompt() {
-  echo ""
-  echo -e "\e[0;34mPress [Enter] to $1\e[m"
+  echo -e "\n\e[0;34mPress [Enter] to $1\e[m"
   read
 }
 
@@ -70,25 +69,25 @@ install_vim_plugins() {
 }
 
 setup_dotfiles() {
-  link "${dir}/bin/ddc" "bin/ddc"
-  link "${dir}/dir_colors" ".dir_colors"
-  link "${dir}/gitconfig" ".gitconfig"
-  link "${dir}/gitignore" ".gitignore"
-  link "${dir}/tmux.conf" ".tmux.conf"
-  source_rc "${dir}/bashrc" ".bashrc"
-  source_rc "${dir}/nvimrc" ".config/nvim/init.vim"
+  [[ "$1" ]] || return
+  link "$1/bin/ddc" "bin/ddc"
+  link "$1/dir_colors" ".dir_colors"
+  link "$1/gitconfig" ".gitconfig"
+  link "$1/gitignore" ".gitignore"
+  link "$1/tmux.conf" ".tmux.conf"
+  source_rc "$1/bashrc" ".bashrc"
+  source_rc "$1/nvimrc" ".config/nvim/init.vim"
 }
 
 main() {
   set -eu
 
   local -r dir="$(realpath -s "$(dirname -- "$0")")"
-  source "${dir}/install.sh"
 
   cd ~
 
   prompt "link (->) and source (=>) dotfiles"
-  setup_dotfiles
+  setup_dotfiles "${dir}"
 
   prompt "install tmux plugins"
   install_tmux_plugins
@@ -96,7 +95,8 @@ main() {
   prompt "install vim plugins"
   install_vim_plugins
 
-  echo "Reopen any bash sessions to make use of the new goodness."
+  echo -e "\n\e[0;34mDone!\e[m"
+  echo -e "\nReopen any bash sessions to make use of the new goodness."
 }
 
 [[ "$0" == "$BASH_SOURCE" ]] && main "$@"

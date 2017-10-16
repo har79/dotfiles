@@ -74,11 +74,11 @@ setPrompt() {
   local -r user="$red\u$default@"
   local -r host="$green\h$default:"
   local -r cwd="$blue\w"
-  local -r git="$violet\$(__git_ps1)"
-  # TODO add mercurial support
+  # TODO add vcs (git, hg) support
+  # local -r git="$violet\$(__git_ps1)"
 
   export PS2="> $default"
-  export PS1="\n$last$jobnum $user$host$cwd$git\n$PS2"
+  export PS1="\n$last$jobnum $user$host$cwd\n$PS2"
 }
 
 setPrompt

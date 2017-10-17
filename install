@@ -14,6 +14,8 @@ link () {
     name+="$(basename ${target})"
   fi
   readonly name
+  set -eu
+
 
   echo -n "${name} -> ${target}"
   if [[ ! -e "${target}" ]]; then
@@ -68,6 +70,7 @@ install_vim_plugins() {
   nvim +PlugClean +PlugInstall +GoInstallBinaries +qall
 }
 
+# install SRC_DIR
 setup_dotfiles() {
   [[ "$1" ]] || return
   mkdir bin && link "$1/bin/ddc" "bin/ddc"
@@ -79,15 +82,12 @@ setup_dotfiles() {
   mkdir -p .config/nvim && source_rc "$1/nvimrc" ".config/nvim/init.vim"
 }
 
-main() {
-  set -eu
-
-  local -r dir="$(realpath -s "$(dirname -- "$0")")"
-
-  cd ~
+# install SRC_DIR
+install() {
+  [[ "$1" ]] || return
 
   prompt "link (->) and source (=>) dotfiles"
-  setup_dotfiles "${dir}"
+  setup_dotfiles "$1"
 
   prompt "install tmux plugins"
   install_tmux_plugins
@@ -97,6 +97,16 @@ main() {
 
   echo -e "\n\e[0;34mDone!\e[m"
   echo -e "\nReopen any bash sessions to make use of the new goodness."
+}
+
+main() {
+  set -eu
+
+  local -r src_dir="$(realpath -s "$(dirname -- "$0")")"
+
+  cd ~
+
+  install "$(src_dir)"
 }
 
 [[ "$0" == "$BASH_SOURCE" ]] && main "$@"

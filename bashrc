@@ -32,7 +32,6 @@ alias unmount=umount
 export EDITOR=/usr/bin/nvim
 
 export PATH="${PATH}"\
-":${HOME}/bin.local"\
 ":${HOME}/.local/bin"\
 ":${HOME}/.pub-cache/bin"\
 ":/sbin"\

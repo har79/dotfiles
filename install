@@ -70,13 +70,13 @@ install_vim_plugins() {
 
 setup_dotfiles() {
   [[ "$1" ]] || return
-  link "$1/bin/ddc" "bin/ddc"
+  mkdir bin && link "$1/bin/ddc" "bin/ddc"
   link "$1/dir_colors" ".dir_colors"
   link "$1/gitconfig" ".gitconfig"
   link "$1/gitignore" ".gitignore"
   link "$1/tmux.conf" ".tmux.conf"
   source_rc "$1/bashrc" ".bashrc"
-  source_rc "$1/nvimrc" ".config/nvim/init.vim"
+  mkdir -p .config/nvim && source_rc "$1/nvimrc" ".config/nvim/init.vim"
 }
 
 main() {

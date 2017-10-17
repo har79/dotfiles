@@ -77,8 +77,8 @@ setPrompt() {
   # TODO add vcs (git, hg) support
   # local -r git="$violet\$(__git_ps1)"
 
-  export PS2="> $default"
-  export PS1="\n$last$jobnum $user$host$cwd\n$PS2"
+  export PS2="> "
+  export PS1="\n$last$jobnum $user$host$cwd$default\n$PS2"
 }
 
 setPrompt

@@ -73,20 +73,24 @@ install_vim_plugins() {
 # install SRC_DIR
 setup_dotfiles() {
   [[ "$1" ]] || return
-  mkdir bin && link "$1/bin/ddc" "bin/ddc"
+  source_rc "$1/bashrc" ".bashrc"
+  mkdir -p .config/nvim && source_rc "$1/nvimrc" ".config/nvim/init.vim"
+  echo ""
   link "$1/dir_colors" ".dir_colors"
   link "$1/gitconfig" ".gitconfig"
   link "$1/gitignore" ".gitignore"
   link "$1/tmux.conf" ".tmux.conf"
-  source_rc "$1/bashrc" ".bashrc"
-  mkdir -p .config/nvim && source_rc "$1/nvimrc" ".config/nvim/init.vim"
+  echo ""
+  mkdir -p bin && ls "$1/bin" | while read f; do
+    link "$1/bin/${f}" "bin/${f}"
+  done
 }
 
 # install SRC_DIR
 install() {
   [[ "$1" ]] || return
 
-  prompt "link (->) and source (=>) dotfiles"
+  prompt "source (=>) and link (->) dotfiles"
   setup_dotfiles "$1"
 
   prompt "install tmux plugins"
@@ -109,4 +113,4 @@ main() {
   install "$(src_dir)"
 }
 
-[[ "$0" == "$BASH_SOURCE" ]] && main "$@"
+if [[ "$0" == "$BASH_SOURCE" ]]; then main "$@"; fi

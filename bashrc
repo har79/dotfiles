@@ -1,4 +1,6 @@
+shopt -s checkwinsize
 shopt -s expand_aliases
+shopt -s globstar
 
 alias +='pushd .'
 alias -- -='popd'
@@ -82,12 +84,12 @@ setPrompt() {
 
 setPrompt
 
-tmx() {
+type tmx &>/dev/null || tmx() {
   session="$(tmux ls | sed -n -r '/attached/ !{s/^([^:]+):.*/\1/;x}; ${x;p}')"
   tmux ${session:+attach}
 }
 
-function selectHost {
+selectHost() {
   [[ "$TMUX" ]] && return 1
 
   local hosts=()

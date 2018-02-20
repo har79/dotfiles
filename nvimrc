@@ -14,6 +14,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dart-lang/dart-vim-plugin'
 Plug 'jlanzarotta/bufexplorer'
+Plug 'kassio/neoterm'
 Plug 'natebosch/dartlang-snippets'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'tmux-plugins/vim-tmux'
@@ -32,6 +33,9 @@ Plug 'tpope/vim-commentary'
 " Plug 'xolox/vim-session'
 
 call plug#end()
+
+" Open quickfix at bottom of all windows.
+au FileType qf wincmd J
 
 " Solarized
 
@@ -132,6 +136,7 @@ set incsearch
 set laststatus=2
 set mouse=c
 set number
+set relativenumber
 set shiftwidth=2
 set shortmess=a
 set showmatch
@@ -147,6 +152,12 @@ set wildmode=longest,list
 " make regexes very magic
 nnoremap / /\v
 vnoremap / /\v
+
+" or use keymaps that works with text-objects
+" nmap gx <Plug>(neoterm-repl-send)
+" xmap gx <Plug>(neoterm-repl-send)
+" nmap gxx <Plug>(neoterm-repl-send-line)
+" now can use gx{text-objects} such as gxip
 
 nnoremap <leader>bn :bNext<CR>
 nnoremap <leader>bp :bPrevious<CR>
@@ -173,6 +184,11 @@ nnoremap <leader>tc :tabnew <CR>
 nnoremap <leader>tn :tabnext <CR>
 nnoremap <leader>tp :tabprevious <CR>
 nnoremap <leader>tq :tabclose <CR>
+
+" Terminal
+nnoremap <silent> <leader>th :call neoterm#toggle()<cr>
+nnoremap <silent> <leader>tx :call neoterm#kill()<cr>
+" tt reserved for :Tmap
 
 " Trim trailing whitespace
 nnoremap <leader>tw :%s/\s\+$//e<CR>

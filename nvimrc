@@ -3,7 +3,6 @@ filetype off
 
 call plug#begin('~/.local/share/nvim/plugged')
 
-Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/echodoc.vim'
@@ -11,7 +10,8 @@ Plug 'SirVer/ultisnips'
 Plug 'altercation/vim-colors-solarized'
 Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'dart-lang/dart-vim-plugin'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'kassio/neoterm'
@@ -52,20 +52,6 @@ let g:bufExplorerFindActive=0
 let g:bufExplorerShowRelativePath=1
 let g:bufExplorerSortBy='fullpath'
 let g:bufExplorerSplitOutPathName=0
-
-" CtrlP
-"let g:ctrlp_clear_cache_on_exit=0
-let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
-let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
-      \ --ignore .git
-      \ --ignore .svn
-      \ --ignore .hg
-      \ --ignore .DS_Store
-      \ --ignore "**/*.pyc"
-      \ --ignore .git5_specs
-      \ --ignore review
-      \ -g ""'
-let g:ctrlp_working_path_mode=''
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
@@ -167,10 +153,11 @@ nnoremap <leader>bx :BufExplorer<CR>
 
 nnoremap <leader>d :YcmCompleter GoToDefinition<CR>
 
-nnoremap <leader>e :CtrlPMixed<CR>
+nnoremap <leader>e :Ag<CR>
 
 nnoremap <leader>f :e! % <CR>
 
+nnoremap <leader>gb :edit %:p:s_\v(/)([lt][ie][bs]t?)/.*$_\1BUILD_<CR>
 nnoremap <leader>gd :edit %:p:s?\.[^.]*$?.dart?<CR>
 nnoremap <leader>gh :edit %:p:s?\.[^.]*$?.html?<CR>
 nnoremap <leader>gs :edit %:p:s?\.[^.]*$?.scss?<CR>

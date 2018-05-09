@@ -153,7 +153,13 @@ nnoremap <leader>bx :BufExplorer<CR>
 
 nnoremap <leader>d :YcmCompleter GoToDefinition<CR>
 
-nnoremap <leader>e :Ag<CR>
+" FZF
+nnoremap <leader>eb :Buffers<CR>
+nnoremap <leader>ec :BLines<CR>
+nnoremap <leader>ee :Ag<CR>
+nnoremap <leader>ef :Files<CR>
+nnoremap <leader>el :Lines<CR>
+nnoremap <leader>ew :Windows<CR>
 
 nnoremap <leader>f :e! % <CR>
 

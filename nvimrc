@@ -15,6 +15,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'dart-lang/dart-vim-plugin'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'kassio/neoterm'
+Plug 'mbbill/undotree'
 Plug 'natebosch/dartlang-snippets'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'tmux-plugins/vim-tmux'
@@ -185,6 +186,9 @@ nnoremap <silent> <leader>tx :call neoterm#kill()<cr>
 
 " Trim trailing whitespace
 nnoremap <leader>tw :%s/\s\+$//e<CR>
+
+" Toggle undo-tree panel
+nnoremap <leader>u :UndotreeToggle<cr>
 
 " Reselect text that was just pasted
 nnoremap <leader>v V`]

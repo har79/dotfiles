@@ -8,13 +8,14 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/echodoc.vim'
 Plug 'SirVer/ultisnips'
 Plug 'altercation/vim-colors-solarized'
-Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+Plug 'autozimu/LanguageClient-neovim', { 'do': 'pub global activate dart_language_server && nvim +UpdateRemotePlugins +qall' }
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'dart-lang/dart-vim-plugin'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'kassio/neoterm'
+Plug 'mbbill/undotree'
 Plug 'natebosch/dartlang-snippets'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'tmux-plugins/vim-tmux'
@@ -185,6 +186,9 @@ nnoremap <silent> <leader>tx :call neoterm#kill()<cr>
 
 " Trim trailing whitespace
 nnoremap <leader>tw :%s/\s\+$//e<CR>
+
+" Toggle undo-tree panel
+nnoremap <leader>u :UndotreeToggle<cr>
 
 " Reselect text that was just pasted
 nnoremap <leader>v V`]

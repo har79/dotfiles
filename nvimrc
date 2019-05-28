@@ -6,7 +6,7 @@ set cindent
 set cmdheight=4
 set colorcolumn=+1
 set expandtab
-" set foldlevel=1
+set foldlevelstart=20
 set foldmethod=syntax
 set lazyredraw
 set mouse=c

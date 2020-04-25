@@ -110,7 +110,7 @@ main() {
 
   cd ~
 
-  install "$(src_dir)"
+  install "${src_dir}"
 }
 
 if [[ "$0" == "$BASH_SOURCE" ]]; then main "$@"; fi

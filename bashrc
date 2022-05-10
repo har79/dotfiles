@@ -84,7 +84,7 @@ setPrompt() {
   # local -r git="$violet\$(__git_ps1)"
 
   export PS2="> "
-  export PS1="\n$last$jobnum $user$host$cwd$default\n$PS2"
+  export PS1="\n$PS1_PREFIX$last$jobnum $default \t $user$host$cwd$PS1_SUFFIX$default\n$PS2"
 }
 
 setPrompt

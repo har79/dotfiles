@@ -89,7 +89,7 @@ setPrompt() {
 
 setPrompt
 
-type tmx &>/dev/null || tmx() {
+type tmx &>/dev/null || function tmx() {
   session="$(tmux ls | sed -n -r '/attached/ !{s/^([^:]+):.*/\1/;x}; ${x;p}')"
   tmux ${session:+attach}
 }

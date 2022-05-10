@@ -10,6 +10,7 @@ set foldlevelstart=20
 set foldmethod=syntax
 set lazyredraw
 set mouse=c
+set nomodeline
 set number
 " set relativenumber
 set shiftwidth=2
@@ -24,7 +25,7 @@ set wildmode=longest,list
 
 nnoremap <leader>f :e! % <CR>
 
-nnoremap <leader>gb :edit %:p:s_\v(/)([lt][ie][bs]t?)/.*$_\1BUILD_<CR>
+nnoremap <leader>gb :edit %:p:s_\v(/)([ltw][ie][bs]t?)/.*$_\1BUILD_<CR>
 nnoremap <leader>gd :edit %:p:s?\.[^.]*$?.dart?<CR>
 nnoremap <leader>gh :edit %:p:s?\.[^.]*$?.html?<CR>
 nnoremap <leader>gs :edit %:p:s?\.[^.]*$?.scss?<CR>
@@ -106,34 +107,12 @@ nnoremap <leader>ew :Windows<CR>
 
 " Languages
 Plug 'dart-lang/dart-vim-plugin'
-Plug 'autozimu/LanguageClient-neovim', { 'do': 'pub global activate dart_language_server && nvim +UpdateRemotePlugins +qall' }
-let g:LanguageClient_autoStart = 1
-let g:LanguageClient_diagnosticsDisplay = {
-      \      1: {
-      \          "name": "Error",
-      \          "texthl": "ALEError",
-      \          "signText": "X",
-      \          "signTexthl": "ALEErrorSign",
-      \      },
-      \      2: {
-      \          "name": "Warning",
-      \          "texthl": "ALEWarning",
-      \          "signText": "!",
-      \          "signTexthl": "ALEWarningSign",
-      \      },
-      \      3: {
-      \          "name": "Information",
-      \          "texthl": "ALEInfo",
-      \          "signText": "i",
-      \          "signTexthl": "ALEInfoSign",
-      \      },
-      \      4: {
-      \          "name": "Hint",
-      \          "texthl": "ALEInfo",
-      \          "signText": ">",
-      \          "signTexthl": "ALEInfoSign",
-      \      },
-      \ }
+Plug 'HerringtonDarkholme/yats.vim'
+
+Plug 'neovim/nvim-lspconfig'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/deoplete-lsp'
+let g:deoplete#enable_at_startup = 1
 
 " Always show sign column
 autocmd BufEnter * sign define dummy
@@ -213,8 +192,8 @@ colorscheme solarized
 " nnoremap <leader>d :YcmCompleter GoToDefinition<CR>
 
 " 
-" " Trim trailing whitespace
-" nnoremap <leader>tw :%s/\s\+$//e<CR>
+" Trim trailing whitespace
+nnoremap <leader>tw :%s/\s\+$//e<CR>
 " 
 " " Toggle undo-tree panel
 " nnoremap <leader>u :UndotreeToggle<cr>

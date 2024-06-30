@@ -1,7 +1,7 @@
 let g:enable_local_swap_dirs=1
 let mapleader=","
 
-set background=light
+set background=dark
 set cindent
 set cmdheight=4
 set colorcolumn=+1
@@ -25,10 +25,10 @@ set wildmode=longest,list
 
 nnoremap <leader>f :e! % <CR>
 
-nnoremap <leader>gb :edit %:p:s_\v(/)([ltw][ie][bs]t?)/.*$_\1BUILD_<CR>
-nnoremap <leader>gd :edit %:p:s?\.[^.]*$?.dart?<CR>
-nnoremap <leader>gh :edit %:p:s?\.[^.]*$?.html?<CR>
-nnoremap <leader>gs :edit %:p:s?\.[^.]*$?.scss?<CR>
+nnoremap <leader>gb :edit %:p:s_\v/(([ltw][ie][bs]t?)/.*\\|[^/]*)$_/BUILD_<CR>
+nnoremap <leader>gd :edit %:p:s_\(\.[^./]*\)*$_.dart_<CR>
+nnoremap <leader>gh :edit %:p:s_\(\.[^./]*\)*$_.acx.html_<CR>
+nnoremap <leader>gs :edit %:p:s_\(\.[^./]*\)*$_.scss_<CR>
 
 nnoremap <leader>p :set invpaste paste?<CR>
 
@@ -95,19 +95,23 @@ Plug 'ncm2/ncm2-path'
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
+set grepprg=rg\ --vimgrep\ --smart-case
+set grepformat=%f:%l:%c:%m,%f:%l:%m
+
 " Fuzzy finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 nnoremap <leader>eb :Buffers<CR>
 nnoremap <leader>ec :BLines<CR>
 nnoremap <leader>ee :Ag<CR>
-nnoremap <leader>ef :Files<CR>
+nnoremap <leader>es :Files<CR>
 nnoremap <leader>el :Lines<CR>
 nnoremap <leader>ew :Windows<CR>
 
 " Languages
 Plug 'dart-lang/dart-vim-plugin'
 Plug 'HerringtonDarkholme/yats.vim'
+Plug 'udalov/kotlin-vim'
 
 Plug 'neovim/nvim-lspconfig'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }

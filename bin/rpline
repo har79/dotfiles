@@ -1,0 +1,8 @@
+#!/bin/bash
+
+echo "";
+while read -r l; do
+  printf '\e[A\e[K'
+  echo "$l"
+done
+

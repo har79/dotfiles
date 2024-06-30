@@ -15,6 +15,7 @@ alias .........='cd ../../../../../../../..'
 alias ..........='cd ../../../../../../../../..'
 alias beep='echo -en "\007"'
 alias egrep='egrep --color=auto'
+alias fd='fdfind'
 alias fgrep='fgrep --color=auto'
 alias gad='git add -u'
 alias gci='git commit'
@@ -30,13 +31,21 @@ alias ll='ls -lh'
 alias loginstatus='true'
 alias ls='ls --color=auto'
 alias md='mkdir -p'
+alias nv='nvim'
 alias o='less'
 alias page='sed -E "s/(.{$(tput cols)}).*/\1/;$(($(tput lines)-$(echo -en $PS1 | wc -l)))q"'
 alias rd='rmdir'
+# Trailing space causes the next word to be checked for alias substitution.
+alias sudo='sudo '
 alias tmux='tmux -2'
 alias unmount=umount
+# Trailing space causes the next word to be checked for alias substitution.
+alias xargs='xargs '
 
 export EDITOR=/usr/bin/nvim
+export FZF_DEFAULT_COMMAND='fdfind --type f'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND='fdfind --type d .'
 
 export PATH="${PATH}"\
 ":${HOME}/.local/bin"\
@@ -53,9 +62,9 @@ export PATH="${PATH}"\
 set -o vi
 
 setPrompt() {
-  # Solarized Light
+  # Solarized
   local -r default="\[\e[m"
-  local -r hl="\[\e[47m"
+  local -r hl="\[\e[40m" ## base02 background
   local -r base03="\[\e[1;30m"
   local -r base02="\[\e[0;30m"
   local -r base01="\[\e[1;32m"
@@ -75,8 +84,8 @@ setPrompt() {
 
   export PROMPT_COMMAND='last="$?"'
 
-  local -r last="$base1\$([[ \$last == 0 ]] || echo \"$yellow\")$hl \$last"
-  local -r jobnum="$base1\$([[ \j == 0 ]] || echo \"$cyan$hl [\j]\")"
+  local -r last="$base01\$([[ \$last == 0 ]] || echo \"$yellow\")$hl \$last"
+  local -r jobnum="$base01\$([[ \j == 0 ]] || echo \"$cyan$hl [\j]\")"
   local -r user="$red\u$default@"
   local -r host="$green\h$default:"
   local -r cwd="$blue\w"

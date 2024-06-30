@@ -98,6 +98,9 @@ setPrompt() {
 
 setPrompt
 
+# Fixes https://github.com/microsoft/WSL/issues/2530
+export TMUX_TMPDIR='/tmp'
+
 type tmx &>/dev/null || function tmx() {
   session="$(tmux ls | sed -n -r '/attached/ !{s/^([^:]+):.*/\1/;x}; ${x;p}')"
   tmux ${session:+attach}

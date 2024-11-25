@@ -15,6 +15,7 @@ alias .........='cd ../../../../../../../..'
 alias ..........='cd ../../../../../../../../..'
 alias beep='echo -en "\007"'
 alias egrep='egrep --color=auto'
+alias find='fd'
 alias fgrep='fgrep --color=auto'
 alias gad='git add -u'
 alias gci='git commit'
@@ -23,7 +24,8 @@ alias gdf='git diff'
 alias gdc='git diff --cached'
 alias gst='git status'
 alias gitgraph='git log --branches --date-order --graph --format=format:"%C(auto)%h %Cblue%d%Creset%C(auto) %s"'
-alias grep='grep --color=auto'
+#alias grep='grep --color=auto'
+alias grep='rg'
 alias l='ll -a'
 alias la='ls -a'
 alias ll='ls -lh'
@@ -63,7 +65,7 @@ set -o vi
 setPrompt() {
   # Solarized
   local -r default="\[\e[m"
-  local -r hl="\[\e[40m" ## base02 background
+  local -r hl="\[\e[47m" ## base2 background
   local -r base03="\[\e[1;30m"
   local -r base02="\[\e[0;30m"
   local -r base01="\[\e[1;32m"
@@ -83,8 +85,8 @@ setPrompt() {
 
   export PROMPT_COMMAND='last="$?"'
 
-  local -r last="$base01\$([[ \$last == 0 ]] || echo \"$yellow\")$hl \$last"
-  local -r jobnum="$base01\$([[ \j == 0 ]] || echo \"$cyan$hl [\j]\")"
+  local -r last="$base1\$([[ \$last == 0 ]] || echo \"$yellow\")$hl \$last"
+  local -r jobnum="$base1\$([[ \j == 0 ]] || echo \"$cyan$hl [\j]\")"
   local -r user="$red\u$default@"
   local -r host="$green\h$default:"
   local -r cwd="$blue\w"

@@ -24,10 +24,18 @@ set wildmode=longest,list
 
 nnoremap <leader>f :e! % <CR>
 
-nnoremap <leader>gb :edit %:p:s_\v/(([ltw][ie][bs]t?)/.*\\|[^/]*)$_/BUILD_<CR>
-nnoremap <leader>gd :edit %:p:s_\(\.[^./]*\)*$_.dart_<CR>
-nnoremap <leader>gh :edit %:p:s_\(\.[^./]*\)*$_.acx.html_<CR>
-nnoremap <leader>gs :edit %:p:s_\(\.[^./]*\)*$_.scss_<CR>
+" Shortcuts to open file with different extension
+" TODO: lib <-> test (use separate replace to work within or between dirs).
+nnoremap <leader>.d :edit %:p:s,\v(_test)?(\.[^./]*)*$,.dart,<CR>
+nnoremap <leader>;d :edit %:p:s,\v(_test)?(\.[^./]*)*$,_test.dart,<CR>
+nnoremap <leader>.h :edit %:p:s,\v(_test)?(\.[^./]*)*$,.html,<CR>
+nnoremap <leader>;h :edit %:p:s,\v(_test)?(\.[^./]*)*$,_test.html,<CR>
+nnoremap <leader>.s :edit %:p:s,\v(_test)?(\.[^./]*)*$,.scss,<CR>
+nnoremap <leader>;s :edit %:p:s,\v(_test)?(\.[^./]*)*$,_test.scss,<CR>
+nnoremap <leader>.t :edit %:p:s,\v(_test)?(\.[^./]*)*$,.ts,<CR>
+nnoremap <leader>;t :edit %:p:s,\v(_test)?(\.[^./]*)*$,_test.ts,<CR>
+nnoremap <leader>.x :edit %:p:s,\v(_test)?(\.[^./]*)*$,.tsx,<CR>
+nnoremap <leader>;x :edit %:p:s,\v(_test)?(\.[^./]*)*$,_test.tsx,<CR>
 
 nnoremap <leader>p :set invpaste paste?<CR>
 

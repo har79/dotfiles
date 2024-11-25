@@ -1,7 +1,7 @@
 let g:enable_local_swap_dirs=1
 let mapleader=","
 
-set background=dark
+set background=light
 set cindent
 set cmdheight=4
 set colorcolumn=+1
@@ -11,8 +11,7 @@ set foldmethod=syntax
 set lazyredraw
 set mouse=c
 set nomodeline
-set number
-" set relativenumber
+set number relativenumber
 set shiftwidth=2
 set shortmess=a
 set showmatch
@@ -60,6 +59,8 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+
+autocmd BufNewFile,BufRead *.ejs set filetype=html
 
 call plug#begin('~/.local/share/nvim/plugged')
 
@@ -112,6 +113,7 @@ nnoremap <leader>ew :Windows<CR>
 Plug 'dart-lang/dart-vim-plugin'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'udalov/kotlin-vim'
+Plug 'phelipetls/vim-hugo'
 
 Plug 'neovim/nvim-lspconfig'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -124,6 +126,9 @@ autocmd BufEnter * execute 'sign place 9999 line=1 name=dummy buffer=' . bufnr('
 
 call plug#end()
 colorscheme solarized
+
+command! -bang FilesCurrent call fzf#run(fzf#wrap({ 'source': 'fd -H . .', 'sink': 'e'}, <bang>0))
+nnoremap <leader>. :FilesCurrent<CR>
 
 " " Plug 'Shougo/echodoc.vim'
 " " Plug 'SirVer/ultisnips'
@@ -177,10 +182,10 @@ colorscheme solarized
 
 " Shortcuts
 
-" " make regexes very magic
-" nnoremap / /\v
-" vnoremap / /\v
-" 
+ " make regexes very magic
+ nnoremap / /\v
+ vnoremap / /\v
+ 
 " " or use keymaps that works with text-objects
 " " nmap gx <Plug>(neoterm-repl-send)
 " " xmap gx <Plug>(neoterm-repl-send)

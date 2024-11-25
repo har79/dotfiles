@@ -15,7 +15,6 @@ alias .........='cd ../../../../../../../..'
 alias ..........='cd ../../../../../../../../..'
 alias beep='echo -en "\007"'
 alias egrep='egrep --color=auto'
-alias fd='fdfind'
 alias fgrep='fgrep --color=auto'
 alias gad='git add -u'
 alias gci='git commit'
@@ -43,9 +42,9 @@ alias unmount=umount
 alias xargs='xargs '
 
 export EDITOR=/usr/bin/nvim
-export FZF_DEFAULT_COMMAND='fdfind --type f'
+export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND='fdfind --type d .'
+export FZF_ALT_C_COMMAND='fd --type d .'
 
 export PATH="${PATH}"\
 ":${HOME}/.local/bin"\

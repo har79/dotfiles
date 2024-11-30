@@ -135,8 +135,8 @@ autocmd BufEnter * execute 'sign place 9999 line=1 name=dummy buffer=' . bufnr('
 call plug#end()
 colorscheme solarized
 
-command! -bang FilesCurrent call fzf#run(fzf#wrap({ 'source': 'fd -H . .', 'sink': 'e'}, <bang>0))
-nnoremap <leader>. :FilesCurrent<CR>
+" command! -bang FilesCurrent call fzf#run(fzf#wrap({ 'source': 'fd -H . .', 'sink': 'e'}, <bang>0))
+" nnoremap <leader>. :FilesCurrent<CR>
 
 " " Plug 'Shougo/echodoc.vim'
 " " Plug 'SirVer/ultisnips'

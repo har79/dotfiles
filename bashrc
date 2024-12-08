@@ -51,6 +51,14 @@ alias hsy='hg sync'
 alias hup='hg upload'
 alias hxl='hg xl'
 
+# Corepack aliases
+alias yarn="corepack yarn"
+alias yarnpkg="corepack yarnpkg"
+alias pnpm="corepack pnpm"
+alias pnpx="corepack pnpx"
+alias npm="corepack npm"
+alias npx="corepack npx"
+
 # Directory aliases
 alias +='pushd .'
 alias -- -='popd'

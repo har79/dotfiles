@@ -3,7 +3,8 @@ shopt -s expand_aliases
 shopt -s globstar
 
 # Git aliases
-alias gad='git add -u'
+alias gad='git add'
+alias gbr='git branch'
 alias gci='git commit'
 alias gco='git checkout'
 alias gdc='git diff --cached'
@@ -58,6 +59,7 @@ alias pnpm="corepack pnpm"
 alias pnpx="corepack pnpx"
 alias npm="corepack npm"
 alias npx="corepack npx"
+alias pn="pnpm"
 
 # Directory aliases
 alias +='pushd .'

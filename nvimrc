@@ -27,7 +27,7 @@ nnoremap <leader>f :e! % <CR>
 " Shortcuts to open file with different extension
 " TODO: lib <-> test (use separate replace to work within or between dirs).
 nnoremap <leader>.d :edit %:p:s,\v(_test)?(\.[^./]*)*$,.dart,<CR>
-nnoremap <leader>;d :edit %:p:s,\v(_test)?(\.[^./]*)*$,_test.dart,<CR>
+nnoremap <leader>;d :edit %:p:s,\v/lib/([^./]*)(_test)?(\.[^./]*)*$,/test/\1_test.dart,<CR>
 nnoremap <leader>.h :edit %:p:s,\v(_test)?(\.[^./]*)*$,.html,<CR>
 nnoremap <leader>;h :edit %:p:s,\v(_test)?(\.[^./]*)*$,_test.html,<CR>
 nnoremap <leader>.s :edit %:p:s,\v(_test)?(\.[^./]*)*$,.scss,<CR>

@@ -104,6 +104,7 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND='fd --type d .'
 
 export PATH="${PATH}"\
+":${HOME}/.cargo/bin"\
 ":${HOME}/.local/bin"\
 ":${HOME}/.pub-cache/bin"\
 ":/sbin"\

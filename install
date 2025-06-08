@@ -79,6 +79,7 @@ setup_dotfiles() {
   link "$1/dir_colors" ".dir_colors"
   link "$1/gitconfig" ".gitconfig"
   link "$1/gitignore" ".gitignore"
+  link "$1/jj.toml" ".config/jj/config.toml"
   link "$1/tmux.conf" ".tmux.conf"
   echo ""
   mkdir -p bin && ls "$1/bin" | while read f; do

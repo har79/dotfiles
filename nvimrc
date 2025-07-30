@@ -41,11 +41,26 @@ nnoremap <leader>p :set invpaste paste?<CR>
 
 nnoremap <leader>s :source ~/.config/nvim/init.vim <CR>
 
+command! -bar DuplicateTabpane
+      \ let s:sessionoptions = &sessionoptions |
+      \ try |
+      \   let &sessionoptions = 'blank,help,folds,winsize,localoptions' |
+      \   let s:file = tempname() |
+      \   execute 'mksession ' . s:file |
+      \   tabnew |
+      \   execute 'source ' . s:file |
+      \ finally |
+      \   silent call delete(s:file) |
+      \   let &sessionoptions = s:sessionoptions |
+      \   unlet! s:file s:sessionoptions |
+      \ endtry
+
 " Tabs
 nnoremap <leader>tc :tabnew <CR>
 nnoremap <leader>tn :tabnext <CR>
 nnoremap <leader>tp :tabprevious <CR>
 nnoremap <leader>tq :tabclose <CR>
+nnoremap <leader>td :DuplicateTabpane <CR>
 
 " Reselect text that was just pasted
 nnoremap <leader>v V`]
@@ -57,6 +72,7 @@ nnoremap <leader>wk <C-w>k
 nnoremap <leader>wl <C-w>l
 nnoremap <leader>wq <C-w>q
 nnoremap <leader>wr <C-w>=
+nnoremap <leader>wz <C-w>_ \| <C-w>\|
 nnoremap <leader>ws <C-w>s<C-w>j
 nnoremap <leader>wv <C-w>v<C-w>l
 
@@ -70,14 +86,16 @@ nnoremap <C-l> <C-w>l
 
 autocmd BufNewFile,BufRead *.ejs set filetype=html
 
-call plug#begin('~/.local/share/nvim/plugged')
+" call plug#begin('~/.local/share/nvim/plugged')
 
 " Stlying
-Plug 'altercation/vim-colors-solarized'
-let g:solarized_termtrans=1
+Plug 'maxmx03/solarized.nvim'
 
 " Utilities
 Plug 'tpope/vim-commentary'
+
+" Notify
+Plug 'rcarriga/nvim-notify'
 
 " Tmux
 Plug 'christoomey/vim-tmux-navigator'

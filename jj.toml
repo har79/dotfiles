@@ -5,3 +5,5 @@ name = "Harry Cameron"
 email = "github@harrycameron.com"
 [ui]
 paginate = "never"
+[git]
+auto-local-bookmark = true

@@ -86,7 +86,7 @@ nnoremap <C-l> <C-w>l
 
 autocmd BufNewFile,BufRead *.ejs set filetype=html
 
-" call plug#begin('~/.local/share/nvim/plugged')
+ call plug#begin('~/.local/share/nvim/plugged')
 
 " Stlying
 Plug 'maxmx03/solarized.nvim'
